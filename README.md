@@ -9,8 +9,11 @@ https://trello.com/b/NFBjm6BP/taip-project
 
 # Team Composition
 Adăscăliței Anca-Luiza
+
 Gordîn Ștefan
+
 Iacob Robert-Ionuț
+
 Năstasă Dan
 
-Coordonator: Conf. Dr. Buraga Sabin-Corneliu
+Coordinator: Conf. Dr. Buraga Sabin-Corneliu
