@@ -16,4 +16,6 @@ Iacob Robert-Ionuț
 
 Năstasă Dan
 
+Niculita Silvan
+
 Coordinator: Conf. Dr. Buraga Sabin-Corneliu
