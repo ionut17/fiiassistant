@@ -19,6 +19,6 @@ A breakdown of the diagrams by author.
 - Use csae diagram - Student timetable
 
 
-# Niculița Silvan
+# Niculiță Silvan
 - Use case diagram - Course list
 - Use case diagram - Login
