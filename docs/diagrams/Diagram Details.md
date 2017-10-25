@@ -2,23 +2,23 @@
 A breakdown of the diagrams by author.
 
 
-# Adascalitei Anca, Stefan Gordin
+# Adăscaliței Anca, Ștefan Gordîn
 - Class diagram - Authentication
 - Class diagram - Courses
 - Class diagram - Server
 - Class diagram - Timetable
 
 
-# Iacob Ionut
+# Iacob Ionuț
 - Arhitecture Diagram
 - Arhitecture Diagram - Client
 
 
-# Năstasă Dan
+# Nastasă Dan
 - Use case diagram - Register
 - Use csae diagram - Student timetable
 
 
-# Niculita Silvan
+# Niculița Silvan
 - Use case diagram - Course list
 - Use case diagram - Login
