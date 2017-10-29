@@ -11,31 +11,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Course", "Course", "{DC15C7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Timetable", "Timetable", "{E352E7C1-37A7-4B9F-B82F-74D324F64602}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.User", "Model.User\Model.User.csproj", "{7DE377D0-F83C-433A-9BF5-F787251457D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.User", "Model.User\Model.User.csproj", "{7DE377D0-F83C-433A-9BF5-F787251457D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.User", "Repository.User\Repository.User.csproj", "{D50A272A-00DD-4DAB-97F5-F8361E4201B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.User", "Repository.User\Repository.User.csproj", "{D50A272A-00DD-4DAB-97F5-F8361E4201B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.User", "Service.User\Service.User.csproj", "{CD7C1483-205B-48F9-B434-A08C16C16B5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.User", "Service.User\Service.User.csproj", "{CD7C1483-205B-48F9-B434-A08C16C16B5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Timetable", "Service.Timetable\Service.Timetable.csproj", "{A2C9BEDC-A463-4899-9909-36A31E674D5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Timetable", "Service.Timetable\Service.Timetable.csproj", "{A2C9BEDC-A463-4899-9909-36A31E674D5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Timetable", "Repository.Timetable\Repository.Timetable.csproj", "{035FE4A0-B420-4666-B035-B1FA0203EEFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Timetable", "Repository.Timetable\Repository.Timetable.csproj", "{035FE4A0-B420-4666-B035-B1FA0203EEFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.Timetable", "Model.Timetable\Model.Timetable.csproj", "{25A8A918-2120-47C1-875E-29B69A230E93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.Timetable", "Model.Timetable\Model.Timetable.csproj", "{25A8A918-2120-47C1-875E-29B69A230E93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.Course", "Model.Course\Model.Course.csproj", "{A9AE53F5-3ED2-4D00-9E84-A012A1F5AF4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.Course", "Model.Course\Model.Course.csproj", "{A9AE53F5-3ED2-4D00-9E84-A012A1F5AF4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Course", "Repository.Course\Repository.Course.csproj", "{9CA3F54E-C803-4ECA-9D69-64510A3C5C61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Course", "Repository.Course\Repository.Course.csproj", "{9CA3F54E-C803-4ECA-9D69-64510A3C5C61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Course", "Service.Course\Service.Course.csproj", "{A8468DB3-F7CF-4118-9BE2-CDECF8C773ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Course", "Service.Course\Service.Course.csproj", "{A8468DB3-F7CF-4118-9BE2-CDECF8C773ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{213FB5B2-CFFB-4909-958A-A4C377254B5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{213FB5B2-CFFB-4909-958A-A4C377254B5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.User", "Gateway.User\Gateway.User.csproj", "{54B3292D-7AB2-4A3F-9E22-6F64F2818291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.User", "Gateway.User\Gateway.User.csproj", "{54B3292D-7AB2-4A3F-9E22-6F64F2818291}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.Timetable", "Gateway.Timetable\Gateway.Timetable.csproj", "{43028D30-FA74-4DD3-9853-A4EB9469677F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.Timetable", "Gateway.Timetable\Gateway.Timetable.csproj", "{43028D30-FA74-4DD3-9853-A4EB9469677F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.Course", "Gateway.Course\Gateway.Course.csproj", "{EBCD1249-B4E8-4ED8-BB47-7B6C06E5E5A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.Course", "Gateway.Course\Gateway.Course.csproj", "{EBCD1249-B4E8-4ED8-BB47-7B6C06E5E5A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons", "Commons\Commons.csproj", "{810A7AD9-99BF-49BE-B646-0CA75F0810DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{EBCD1249-B4E8-4ED8-BB47-7B6C06E5E5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBCD1249-B4E8-4ED8-BB47-7B6C06E5E5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBCD1249-B4E8-4ED8-BB47-7B6C06E5E5A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{810A7AD9-99BF-49BE-B646-0CA75F0810DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{810A7AD9-99BF-49BE-B646-0CA75F0810DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{810A7AD9-99BF-49BE-B646-0CA75F0810DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{810A7AD9-99BF-49BE-B646-0CA75F0810DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
