@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Model.Timetable\Model.Timetable.csproj" />
+    <ProjectReference Include="..\Repository.Timetable\Repository.Timetable.csproj" />
+  </ItemGroup>
+
+</Project>
