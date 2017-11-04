@@ -6,28 +6,30 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using User.Business.Repository;
 using User.Data.Access;
 using User.Data.Model.Entities;
-using User.Data.Model.Interfaces;
 
 namespace IntegrationTests.User {
     [TestClass]
     public class GivenStudentRepository : BaseIntegrationTest<UserContext> {
-        private IStudentRepository _studentRepository;
 
         [TestMethod]
-        public void Given_UserRepository_When_Introducing3Users_Then_TheUsersShouldBeProperlyIntroduced() {
-            var sut = CreateSystemUnderTest();
+        public void When_Introducing1User_Then_TheUserShouldBeProperlyIntroduced() {
+            RunOnDatabase(sut => {
+                //Arrange
+                var repository = new StudentRepository(sut);
+                var user = new Student
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "Mos",
+                    LastName = "Craciun"
+                };
 
-            var user = new Student {
-                Id = Guid.NewGuid(),
-                FirstName = "Mos",
-                LastName = "Craciun"
-            };
+                //Act
+                repository.Add(user);
+                var result = repository.GetAll();
 
-            sut.Add(user);
-
-            var result = sut.GetAll();
-
-            result.Count().Should().Be(1);
+                //Assert
+                result.Count().Should().Be(1);
+            });
         }
 
 
@@ -36,9 +38,9 @@ namespace IntegrationTests.User {
                 .UseInMemoryDatabase("UserDB")
                 .Options;
 
-            var context = new UserContext(options);
-            databaseAction(context);
-            _studentRepository = new StudentRepository(context);
+            using (var context = new UserContext(options)) { 
+                databaseAction(context);
+            }
         }
 
         protected override void RunOnSqlServer(Action<UserContext> databaseAction) {
@@ -48,13 +50,9 @@ namespace IntegrationTests.User {
                 .UseSqlServer(connection)
                 .Options;
 
-            var context = new UserContext(options);
-            databaseAction(context);
-            _studentRepository = new StudentRepository(context);
-        }
-
-        private IStudentRepository CreateSystemUnderTest() {
-            return _studentRepository;
+            using (var context = new UserContext(options)) {
+                databaseAction(context);
+            }
         }
     }
 }
