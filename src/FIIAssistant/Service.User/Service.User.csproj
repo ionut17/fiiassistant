@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
+    <ProjectReference Include="..\Model.User\Model.User.csproj" />
+    <ProjectReference Include="..\Repository.User\Repository.User.csproj" />
   </ItemGroup>
-
 
 </Project>
