@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Server {
+namespace Course.Presentation {
     public class Program {
         public static void Main(string[] args) {
             BuildWebHost(args).Run();
