@@ -2,8 +2,10 @@
 using System.Linq;
 using User.Data.Model.Entities;
 
-namespace User.Data.Model.Interfaces {
-    public interface IStudentRepository {
+namespace User.Data.Model.Interfaces
+{
+    public interface IStudentRepository
+    {
         IQueryable<Student> GetAll();
         Student GetById(Guid id);
         void Add(Student student);
