@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using User.Data.Model.Common;
 
-namespace User.Data.Model
+namespace User.Data.Model.Common
 {
     public abstract class User : Entity
     {
