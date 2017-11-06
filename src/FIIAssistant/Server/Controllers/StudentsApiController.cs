@@ -10,7 +10,7 @@ namespace Server.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            const string url = MicroservicesEndpoints.GetAllStudents;
+            const string url = MicroservicesEndpoints.Students;
             var result = RestClient.Get(url);
             if (result == null)
                 return NotFound();
@@ -20,7 +20,7 @@ namespace Server.Controllers
         [HttpGet("{firstName}")]
         public IActionResult Get(string firstName)
         {
-            var url = string.Format(MicroservicesEndpoints.GetStudentByFirstName, firstName);
+            var url = string.Format(MicroservicesEndpoints.StudentByFirstName, firstName);
             var result = RestClient.Get(url);
             if (result == null)
                 return NotFound();
@@ -30,16 +30,31 @@ namespace Server.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] object student)
         {
-            const string url = MicroservicesEndpoints.PostStudent;
+            const string url = MicroservicesEndpoints.Students;
             var result = RestClient.Post(url, student);
             if (result == null)
                 return NotFound();
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut]
+        public IActionResult Put([FromBody] object student)
         {
+            const string url = MicroservicesEndpoints.StudentByFirstName;
+            var result = RestClient.Put(url, student);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpDelete("{firstName}")]
+        public IActionResult Delete(string firstName)
+        {
+            var url = string.Format(MicroservicesEndpoints.StudentByFirstName, firstName);
+            var result = RestClient.Delete(url);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
         }
     }
 }

@@ -21,14 +21,19 @@ namespace Server.RestClients
             return HttpClient.PostAsync(url, byteContent).Result.Content.ReadAsStringAsync().Result;
         }
 
-        public static void Delete<T>(string url, T data)
+        public static string Put(string url, object data)
         {
             var content = JsonConvert.SerializeObject(data);
 
             var buffer = Encoding.UTF8.GetBytes(content);
             var byteContent = new ByteArrayContent(buffer);
 
-            HttpClient.PostAsync(url, byteContent);
+            return HttpClient.PutAsync(url, byteContent).Result.Content.ReadAsStringAsync().Result;
+        }
+
+        public static string Delete(string url)
+        {
+            return HttpClient.DeleteAsync(url).Result.Content.ReadAsStringAsync().Result;
         }
     }
 }

@@ -30,10 +30,22 @@ namespace User.Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Student student)
+        public IActionResult Post(Student receivedObject)
         {
+            Student student = (Student)receivedObject;
             Students.Add(student);
             return Ok(Students);
+        }
+
+
+        [HttpPut]
+        public IActionResult Put(object receivedObject)
+        {
+            Student student = (Student)receivedObject;
+            Student studentToUpdate = Students.Find(s => s.FirstName.Equals(student.FirstName));
+            int indexOldValue = Students.IndexOf(studentToUpdate);
+            Students[indexOldValue] = student;
+            return Ok(student);
         }
 
         [HttpDelete("{firstName}")]
