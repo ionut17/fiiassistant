@@ -10,6 +10,10 @@ namespace User.Data.Model.Entities
             FirstName = firstName;
         }
 
+        public Student()
+        {
+        }
+
         public int Year { get; set; }
 
         public string Group { get; set; }

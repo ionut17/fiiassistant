@@ -21,9 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Server\Server.csproj" />
     <ProjectReference Include="..\User.Business.Repository\User.Business.Repository.csproj" />
     <ProjectReference Include="..\User.Data.Access\User.Data.Access.csproj" />
     <ProjectReference Include="..\User.Data.Model\User.Data.Model.csproj" />
+    <ProjectReference Include="..\User.Presentation\User.Presentation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,39 +1,42 @@
 ﻿using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Server.RestClients
 {
     public class RestClient
     {
-        private static readonly HttpClient HttpClient = new HttpClient();
+        private readonly HttpClient _httpClient = new HttpClient();
 
-        public static string Get(string url)
+        public async Task<string> Get(string url)
         {
-            return HttpClient.GetAsync(url).Result.Content.ReadAsStringAsync().Result;
+            var task = _httpClient.GetAsync(url);
+            var str = await task.Result.Content.ReadAsStringAsync();
+            return str;
         }
 
-        public static string Post(string url, object data)
+        public async Task<string> Post(string url, object data)
         {
-            var content = JsonConvert.SerializeObject(data);
-            var buffer = Encoding.UTF8.GetBytes(content);
-            var byteContent = new ByteArrayContent(buffer);
-            return HttpClient.PostAsync(url, byteContent).Result.Content.ReadAsStringAsync().Result;
+            var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            var task = _httpClient.PostAsync(url, content);
+            var str = await task.Result.Content.ReadAsStringAsync();
+            return str;
         }
 
-        public static string Put(string url, object data)
+        public async Task<string> Put(string url, object data)
         {
-            var content = JsonConvert.SerializeObject(data);
-
-            var buffer = Encoding.UTF8.GetBytes(content);
-            var byteContent = new ByteArrayContent(buffer);
-
-            return HttpClient.PutAsync(url, byteContent).Result.Content.ReadAsStringAsync().Result;
+            var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            var task = _httpClient.PutAsync(url, content);
+            var str = await task.Result.Content.ReadAsStringAsync();
+            return str;
         }
 
-        public static string Delete(string url)
+        public async Task<string> Delete(string url)
         {
-            return HttpClient.DeleteAsync(url).Result.Content.ReadAsStringAsync().Result;
+            var task = _httpClient.DeleteAsync(url);
+            var str = await task.Result.Content.ReadAsStringAsync();
+            return str;
         }
     }
 }
