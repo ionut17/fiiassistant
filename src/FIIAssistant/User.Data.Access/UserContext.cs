@@ -9,6 +9,7 @@ namespace User.Data.Access
             : base(options)
         {
         }
+        
 
         public DbSet<Student> Students { get; set; }
 

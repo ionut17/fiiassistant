@@ -8,7 +8,7 @@ namespace User.Data.Model.Common
         {
             Id = Guid.NewGuid();
         }
-
+        
         public Guid Id { get; set; }
     }
 }
