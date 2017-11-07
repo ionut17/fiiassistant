@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace User.Data.Model.Common
+namespace Timetable.Data.Model.Common
 {
     public class Entity
     {
@@ -8,7 +8,7 @@ namespace User.Data.Model.Common
         {
             Id = Guid.NewGuid();
         }
-        
+
         public Guid Id { get; set; }
     }
 }

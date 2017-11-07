@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Timetable.Business.Repository\Timetable.Business.Repository.csproj" />
+    <ProjectReference Include="..\Timetable.Data.Model\Timetable.Data.Model.csproj" />
+  </ItemGroup>
+
 </Project>
