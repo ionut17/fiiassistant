@@ -8,6 +8,7 @@ namespace User.Data.Model.Entities
             
         }
 
+
         public Student(string firstName)
         {
             FirstName = firstName;

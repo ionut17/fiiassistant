@@ -15,7 +15,12 @@
   <ItemGroup>
     <Folder Include="Course\" />
     <Folder Include="User\" />
-    <Folder Include="Timetable\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Timetable.Business.Repository\Timetable.Business.Repository.csproj" />
+    <ProjectReference Include="..\Timetable.Business.Service\Timetable.Business.Service.csproj" />
+    <ProjectReference Include="..\Timetable.Data.Model\Timetable.Data.Model.csproj" />
   </ItemGroup>
 
 </Project>
