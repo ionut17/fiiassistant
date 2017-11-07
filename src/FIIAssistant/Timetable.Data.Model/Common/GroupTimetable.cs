@@ -1,4 +1,5 @@
-﻿using Timetable.Data.Model.Common;
+﻿using System;
+using Timetable.Data.Model.Common;
 
 namespace Timetable.Data.Model.Common
 {
@@ -21,7 +22,7 @@ namespace Timetable.Data.Model.Common
 
         public new string GetAddress()
         {
-            return BaseAddress + "/participanti/orar_" + Group + ".html";
+            return String.IsNullOrEmpty(Group) ? BaseAddress : BaseAddress + "/participanti/orar_" + Group + ".html";
         }
 
     }
