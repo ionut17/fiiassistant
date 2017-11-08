@@ -8,14 +8,9 @@ namespace User.Data.Model.Entities
             
         }
 
-
         public Student(string firstName)
         {
             FirstName = firstName;
-        }
-
-        public Student()
-        {
         }
 
         public int Year { get; set; }
