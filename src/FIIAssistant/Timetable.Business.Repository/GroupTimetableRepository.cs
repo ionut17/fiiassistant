@@ -9,7 +9,7 @@ namespace Timetable.Business.Repository
     {
         public GroupTimetable GetTimetable()
         {
-            throw new NotImplementedException();
+            return new GroupTimetable();
         }
     }
 }

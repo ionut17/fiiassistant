@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Timetable.Business.Repository;
 using UnitTests.Timetable.Common;
 using Timetable.Data.Model.Common;
 
@@ -33,6 +34,13 @@ namespace UnitTests.Timetable
             };
             string address = timetable.GetAddress();
             Assert.AreEqual("https://profs.info.uaic.ro/~orar/participanti/orar_MIS1.html", address);
+        }
+
+        [TestMethod]
+        public void When_GroupTimetableRepositoryIsInstanciated_Then_ItReturnsGroupTable()
+        {
+            GroupTimetableRepository repository = new GroupTimetableRepository();
+            Assert.IsInstanceOfType(repository.GetTimetable(), typeof(GroupTimetable));
         }
 
     }
