@@ -1,14 +1,15 @@
 ﻿using Timetable.Business.Repository;
+using Timetable.Data.Model.Common;
 
 namespace Timetable.Business.Service
 {
     public class TableService
     {
-        private readonly GroupTimetableRepository _groupTimetableRepository;
+        private readonly TimetableRepository<GroupRequest> _timetableRepository;
 
-        public TableService(GroupTimetableRepository groupTimetableRepository)
+        public TableService(TimetableRepository<GroupRequest> timetableRepository)
         {
-            _groupTimetableRepository = groupTimetableRepository;
+            _timetableRepository = timetableRepository;
         }
     }
 }

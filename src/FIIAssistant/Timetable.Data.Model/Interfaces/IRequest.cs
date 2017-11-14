@@ -2,7 +2,7 @@
 
 namespace Timetable.Data.Model.Interfaces
 {
-    public interface ITimetable
+    public interface IRequest
     {
         string GetAddress();
 
