@@ -5,11 +5,11 @@ namespace Server.Logger
 {
     public class FileLogger : Logger
     {
-        public static string filePath = "D:\\FIIAssistantLogging.txt";
+        private const string FilePath = "./FIIAssistantLogging.txt";
 
         public override void Log(string message)
         {
-            using (var streamWriter = File.AppendText(filePath))
+            using (var streamWriter = File.AppendText(FilePath))
             {
                 streamWriter.WriteLine(DateTime.Now + ": " + message);
                 streamWriter.Close();
@@ -18,7 +18,7 @@ namespace Server.Logger
 
         public static void ClearLogging()
         {
-            using (var streamWriter = new StreamWriter(filePath))
+            using (var streamWriter = new StreamWriter(FilePath))
             {
                 streamWriter.Write("");
                 streamWriter.Close();
