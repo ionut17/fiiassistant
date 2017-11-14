@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Logger;
 using Server.Resources;
 using Server.RestClients;
 using User.Data.Model.Entities;
@@ -17,6 +18,8 @@ namespace Server.Controllers
 
             var result = _restClient.Get(url).Result;
 
+            LogHelper.Log(LogContainer.File, GetType().Name + ": GET returned result");
+
             if (result == null)
                 return NotFound();
             return Ok(result);
@@ -28,6 +31,9 @@ namespace Server.Controllers
             var url = string.Format(MicroservicesEndpoints.StudentByFirstName, firstName);
 
             var result = _restClient.Get(url).Result;
+
+            LogHelper.Log(LogContainer.File,
+                GetType().Name + ": GET for student with firstName " + firstName + " returned result");
 
             if (result == null)
                 return NotFound();
@@ -41,6 +47,8 @@ namespace Server.Controllers
 
             var result = _restClient.Post(url, student).Result;
 
+            LogHelper.Log(LogContainer.File, GetType().Name + ": POST returned result");
+
             if (result == null)
                 return NotFound();
             return Ok(result);
@@ -52,6 +60,9 @@ namespace Server.Controllers
             const string url = MicroservicesEndpoints.Students;
 
             var result = _restClient.Put(url, student).Result;
+
+            LogHelper.Log(LogContainer.File,
+                GetType().Name + ": PUT for student with firstName " + student.FirstName + " returned result");
 
             if (result == null)
                 return NotFound();

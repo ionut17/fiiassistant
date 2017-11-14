@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using Timetable.Data.Model.Common;
+﻿using Timetable.Data.Model.Common;
 
 namespace Timetable.Data.Model.Interfaces
 {
-    public interface ITimetableRepository<TEntity> where TEntity : Entity
+    public interface ITimetableRepository<TEntity, TTimetable> where TEntity : Entity
     {
-        TEntity GetTimetable();
-
+        TTimetable GetTimetable(TEntity entity);
     }
 }
