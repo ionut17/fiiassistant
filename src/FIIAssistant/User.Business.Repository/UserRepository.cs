@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using EnsureThat;
 using User.Data.Access;
 using User.Data.Model.Entities;
@@ -18,7 +17,8 @@ namespace User.Business.Repository
             _context = context;
         }
 
-        public User GetUserByEmail(string email) {
+        public User GetUserByEmail(string email)
+        {
             return _context.Students.FirstOrDefault(user => user.Email.Equals(email));
         }
     }

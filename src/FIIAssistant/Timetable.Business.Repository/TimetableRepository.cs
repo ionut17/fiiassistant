@@ -6,7 +6,8 @@ using Timetable.Data.Model.Interfaces;
 
 namespace Timetable.Business.Repository
 {
-    public class TimetableRepository<TRequest> : ITimetableRepository<TRequest, WeekTimetable> where TRequest : Request
+    public class TimetableRepository<TRequest> : ITimetableRepository<TRequest, WeekTimetable>
+        where TRequest : Request
     {
         private readonly WebClient _webClient;
 

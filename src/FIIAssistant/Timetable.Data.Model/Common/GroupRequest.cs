@@ -3,8 +3,7 @@
     public class GroupRequest : Request
     {
         public GroupRequest()
-        {
-        }
+        { }
 
         public GroupRequest(string baseAddress, string group, int year)
         {

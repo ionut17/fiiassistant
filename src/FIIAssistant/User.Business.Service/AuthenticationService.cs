@@ -6,10 +6,12 @@ namespace User.Business.Service
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IUserRepository _userRepository;
         private readonly IAuthenticationRepository _authenticationRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AuthenticationService(IUserRepository userRepository, IAuthenticationRepository authenticationRepository) {
+        public AuthenticationService(IUserRepository userRepository,
+            IAuthenticationRepository authenticationRepository)
+        {
             Ensure.That(userRepository).IsNotNull();
             Ensure.That(authenticationRepository).IsNotNull();
 
@@ -17,11 +19,13 @@ namespace User.Business.Service
             _authenticationRepository = authenticationRepository;
         }
 
-        public User FindUserByEmail(string email) {
+        public User FindUserByEmail(string email)
+        {
             return _userRepository.GetUserByEmail(email);
         }
 
-        public bool ValidateUserPassword(User user, string password) {
+        public bool ValidateUserPassword(User user, string password)
+        {
             return _authenticationRepository.ValidateUserPassword(user, password);
         }
     }

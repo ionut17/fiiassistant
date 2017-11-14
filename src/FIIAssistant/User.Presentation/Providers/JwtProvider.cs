@@ -8,27 +8,28 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using User.Data.Model.Interfaces;
 using User.Data.Model.Interfaces.Services;
 
 namespace User.Presentation.Providers
 {
-    public class JwtProvider {
-        private readonly RequestDelegate _next;
-        private readonly IAuthenticationService _authenticationService;
+    public class JwtProvider
+    {
+        private static readonly string PrivateKey = "private_key_1234567890"
+            ; //TODO: generate proper private key, extract in properties file
 
-        private TimeSpan _tokenExpiration;
-        private readonly SigningCredentials _signingCredentials;
-
-        private static readonly string PrivateKey = "private_key_1234567890"; //TODO: generate proper private key, extract in properties file
-
-        public static readonly SymmetricSecurityKey SecurityKey = 
+        public static readonly SymmetricSecurityKey SecurityKey =
             new SymmetricSecurityKey(Encoding.ASCII.GetBytes(PrivateKey));
 
         public static readonly string Issuer = "FIIAssistantApp";
         public static string TokenEndPoint = "/api/v1/login/token";
+        private readonly IAuthenticationService _authenticationService;
+        private readonly RequestDelegate _next;
+        private readonly SigningCredentials _signingCredentials;
 
-        public JwtProvider(RequestDelegate next, IAuthenticationService authenticationService) {
+        private TimeSpan _tokenExpiration;
+
+        public JwtProvider(RequestDelegate next, IAuthenticationService authenticationService)
+        {
             Ensure.That(authenticationService).IsNotNull();
 
             _next = next;
@@ -38,24 +39,24 @@ namespace User.Presentation.Providers
             _signingCredentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
         }
 
-        public Task Invoke(HttpContext httpContext) {
+        public Task Invoke(HttpContext httpContext)
+        {
             //Check if the request path matches login path
             if (!httpContext.Request.Path.Equals(TokenEndPoint, StringComparison.Ordinal)) return _next(httpContext);
 
             // Check if the current request is a valid POST with the appropriate content type (application/x-www-form-urlencoded)
             if (httpContext.Request.Method.Equals("POST") && httpContext.Request.HasFormContentType)
-            {
-                // OK: generate token and send it via a json-formatted string
                 return CreateToken(httpContext);
-            }
 
             // Not OK: output a 400 - Bad request HTTP error.
             httpContext.Response.StatusCode = 400;
             return httpContext.Response.WriteAsync("Bad request.");
         }
 
-        private async Task CreateToken(HttpContext httpContext) {
-            try {
+        private async Task CreateToken(HttpContext httpContext)
+        {
+            try
+            {
                 // retrieve the relevant FORM data
                 string email = httpContext.Request.Form["email"];
                 string password = httpContext.Request.Form["password"];
@@ -64,14 +65,17 @@ namespace User.Presentation.Providers
                 var user = _authenticationService.FindUserByEmail(email);
 
                 var success = user != null && _authenticationService.ValidateUserPassword(user, password);
-                if (success) {
-                    DateTime now = DateTime.UtcNow;
+                if (success)
+                {
+                    var now = DateTime.UtcNow;
 
-                    var claims = new[] {
+                    var claims = new[]
+                    {
                         new Claim(JwtRegisteredClaimNames.Iss, Issuer),
                         new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.Iat, new DateTimeOffset(now).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
+                        new Claim(JwtRegisteredClaimNames.Iat, new DateTimeOffset(now).ToUnixTimeSeconds().ToString(),
+                            ClaimValueTypes.Integer64)
                         // add additional claims here, if necessary
                     };
 
@@ -88,7 +92,7 @@ namespace User.Presentation.Providers
                     {
                         access_token = encodedToken,
                         userId = user.Id,
-                        expiration = (int)_tokenExpiration.TotalSeconds
+                        expiration = (int) _tokenExpiration.TotalSeconds
                     };
 
                     // return token
@@ -97,7 +101,8 @@ namespace User.Presentation.Providers
                     return;
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 //Todo: handle possible errors
                 throw e;
             }
