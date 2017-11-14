@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,8 @@ using User.Data.Model.Entities;
 namespace IntegrationTests.User
 {
     [TestClass]
-    public class GivenStudentRepository : BaseIntegrationTest<UserContext> {
+    public class GivenStudentRepository : BaseIntegrationTest<UserContext>
+    {
         [TestMethod]
         public void When_GettingAllStudents_Then_AllTheStudentsShouldBeLoaded()
         {
@@ -19,7 +19,7 @@ namespace IntegrationTests.User
             {
                 //Arrange
                 var repository = new StudentRepository(sut);
-                var user1 = new Student()
+                var user1 = new Student
                 {
                     Id = Guid.NewGuid(),
                     FirstName = "Mos",
@@ -27,7 +27,8 @@ namespace IntegrationTests.User
                 };
                 repository.Add(user1);
 
-                var user2 = new Student() {
+                var user2 = new Student
+                {
                     Id = Guid.NewGuid(),
                     FirstName = "test",
                     LastName = "student"
@@ -65,14 +66,17 @@ namespace IntegrationTests.User
         }
 
         [TestMethod]
-        public void When_GettingStudentById_Then_TheProperStudentShouldBeLoaded() {
+        public void When_GettingStudentById_Then_TheProperStudentShouldBeLoaded()
+        {
             var guid = Guid.NewGuid();
 
-            RunOnDatabase(sut => {
+            RunOnDatabase(sut =>
+            {
                 //Arrange
                 var repository = new StudentRepository(sut);
 
-                var user = new Student() {
+                var user = new Student
+                {
                     Id = guid,
                     FirstName = "student",
                     LastName = "test"
@@ -89,11 +93,14 @@ namespace IntegrationTests.User
         }
 
         [TestMethod]
-        public void When_UpdatingAStudent_Then_TheStudentShouldBeProperlyUpdated() {
-            RunOnDatabase(sut => {
+        public void When_UpdatingAStudent_Then_TheStudentShouldBeProperlyUpdated()
+        {
+            RunOnDatabase(sut =>
+            {
                 //Arrange
                 var repository = new StudentRepository(sut);
-                var user = new Student() {
+                var user = new Student
+                {
                     Id = Guid.NewGuid(),
                     FirstName = "student",
                     LastName = "test"
@@ -112,11 +119,13 @@ namespace IntegrationTests.User
         }
 
         [TestMethod]
-        public void When_DeletingAStudent_Then_TheStudentShouldBeProperlyDeleted() {
-            RunOnDatabase(sut => {
+        public void When_DeletingAStudent_Then_TheStudentShouldBeProperlyDeleted()
+        {
+            RunOnDatabase(sut =>
+            {
                 //Arrange
                 var repository = new StudentRepository(sut);
-                var user = new Student()
+                var user = new Student
                 {
                     Id = Guid.NewGuid(),
                     FirstName = "student",
@@ -140,7 +149,8 @@ namespace IntegrationTests.User
                 .UseInMemoryDatabase("UserDB")
                 .Options;
 
-            using (var context = new UserContext(options)) {
+            using (var context = new UserContext(options))
+            {
                 databaseAction(context);
             }
         }

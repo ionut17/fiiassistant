@@ -9,11 +9,13 @@ namespace User.Business.Repository
     {
         private readonly DbContext _context;
 
-        protected BaseRepository(DbContext context) {
+        protected BaseRepository(DbContext context)
+        {
             _context = context;
         }
 
-        public IQueryable<TEntity> GetAll() {
+        public IQueryable<TEntity> GetAll()
+        {
             return _context.Set<TEntity>().AsNoTracking();
         }
 
@@ -36,7 +38,8 @@ namespace User.Business.Repository
             _context.SaveChanges();
         }
 
-        public void Delete(Guid id) {
+        public void Delete(Guid id)
+        {
             var entity = _context.Set<TEntity>().Single(e => e.Id == id);
 
             if (entity == null) return;

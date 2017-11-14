@@ -1,12 +1,10 @@
-﻿using System;
-using Timetable.Data.Model.Common;
-
-namespace Timetable.Data.Model.Common
+﻿namespace Timetable.Data.Model.Common
 {
     public class GroupRequest : Request
     {
-
-        public GroupRequest() { }
+        public GroupRequest()
+        {
+        }
 
         public GroupRequest(string baseAddress, string group, int year)
         {
@@ -21,8 +19,7 @@ namespace Timetable.Data.Model.Common
 
         public override string GetAddress()
         {
-            return String.IsNullOrEmpty(Group) ? BaseAddress : BaseAddress + "/participanti/orar_" + Group + ".html";
+            return string.IsNullOrEmpty(Group) ? BaseAddress : BaseAddress + "/participanti/orar_" + Group + ".html";
         }
-
     }
 }

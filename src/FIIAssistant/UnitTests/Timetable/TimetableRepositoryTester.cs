@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Timetable.Business.Repository;
-using UnitTests.Timetable.Common;
 using Timetable.Data.Model.Common;
 
 namespace UnitTests.Timetable
@@ -9,7 +7,6 @@ namespace UnitTests.Timetable
     [TestClass]
     public class TimetableRepositoryTester
     {
-
         [TestMethod]
         public void When_TimetableRepositoryIsInstanciated_Then_ItReturnsGroupTable()
         {
@@ -22,6 +19,5 @@ namespace UnitTests.Timetable
             };
             Assert.IsInstanceOfType(repository.GetTimetable(groupRequest), typeof(WeekTimetable));
         }
-
     }
 }

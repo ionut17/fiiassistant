@@ -5,6 +5,5 @@ namespace User.Data.Model.Interfaces
 {
     public interface IStudentRepository : IBaseRepository<Student>
     {
-
     }
 }

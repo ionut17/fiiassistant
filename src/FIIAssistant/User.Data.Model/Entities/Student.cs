@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace User.Data.Model.Entities
+﻿namespace User.Data.Model.Entities
 {
     public class Student : Common.User
     {
-        public Student() {
-            
+        public Student()
+        {
         }
 
         public Student(string firstName)

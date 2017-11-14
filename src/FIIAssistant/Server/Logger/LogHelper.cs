@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Server.Logger
+﻿namespace Server.Logger
 {
     public static class LogHelper
     {
-        private static Logger logger = null;
+        private static Logger logger;
+
         public static void Log(LogContainer target, string message)
         {
             switch (target)

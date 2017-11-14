@@ -1,5 +1,4 @@
-﻿using log4net;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Server.Logger;
 using Server.Resources;
 using Server.RestClients;
@@ -19,7 +18,7 @@ namespace Server.Controllers
 
             var result = _restClient.Get(url).Result;
 
-            Logger.LogHelper.Log(LogContainer.File, this.GetType().Name + ": GET returned result");
+            LogHelper.Log(LogContainer.File, GetType().Name + ": GET returned result");
 
             if (result == null)
                 return NotFound();
@@ -33,7 +32,8 @@ namespace Server.Controllers
 
             var result = _restClient.Get(url).Result;
 
-            Logger.LogHelper.Log(LogContainer.File, this.GetType().Name + ": GET for student with firstName "+ firstName +" returned result");
+            LogHelper.Log(LogContainer.File,
+                GetType().Name + ": GET for student with firstName " + firstName + " returned result");
 
             if (result == null)
                 return NotFound();
@@ -47,7 +47,7 @@ namespace Server.Controllers
 
             var result = _restClient.Post(url, student).Result;
 
-            Logger.LogHelper.Log(LogContainer.File, this.GetType().Name + ": POST returned result");
+            LogHelper.Log(LogContainer.File, GetType().Name + ": POST returned result");
 
             if (result == null)
                 return NotFound();
@@ -61,7 +61,8 @@ namespace Server.Controllers
 
             var result = _restClient.Put(url, student).Result;
 
-            Logger.LogHelper.Log(LogContainer.File, this.GetType().Name.ToString() + ": PUT for student with firstName "+student.FirstName+" returned result");
+            LogHelper.Log(LogContainer.File,
+                GetType().Name + ": PUT for student with firstName " + student.FirstName + " returned result");
 
             if (result == null)
                 return NotFound();
