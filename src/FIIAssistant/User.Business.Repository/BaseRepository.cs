@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using EnsureThat;
 using Microsoft.EntityFrameworkCore;
 using User.Data.Model.Common;
 
@@ -9,7 +10,10 @@ namespace User.Business.Repository
     {
         private readonly DbContext _context;
 
-        protected BaseRepository(DbContext context) {
+        protected BaseRepository(DbContext context)
+        {
+            Ensure.That(context).IsNotNull();
+
             _context = context;
         }
 

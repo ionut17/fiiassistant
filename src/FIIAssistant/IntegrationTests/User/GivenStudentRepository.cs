@@ -18,7 +18,7 @@ namespace IntegrationTests.User
             RunOnDatabase(sut =>
             {
                 //Arrange
-                var repository = new StudentRepository(sut);
+                var repository = new UserRepository(sut);
                 var user1 = new Student()
                 {
                     Id = Guid.NewGuid(),
@@ -48,7 +48,7 @@ namespace IntegrationTests.User
             RunOnDatabase(sut =>
             {
                 //Arrange
-                var repository = new StudentRepository(sut);
+                var repository = new UserRepository(sut);
                 var user = new Student("Mos")
                 {
                     Id = Guid.NewGuid(),
@@ -70,7 +70,7 @@ namespace IntegrationTests.User
 
             RunOnDatabase(sut => {
                 //Arrange
-                var repository = new StudentRepository(sut);
+                var repository = new UserRepository(sut);
 
                 var user = new Student() {
                     Id = guid,
@@ -92,7 +92,7 @@ namespace IntegrationTests.User
         public void When_UpdatingAStudent_Then_TheStudentShouldBeProperlyUpdated() {
             RunOnDatabase(sut => {
                 //Arrange
-                var repository = new StudentRepository(sut);
+                var repository = new UserRepository(sut);
                 var user = new Student() {
                     Id = Guid.NewGuid(),
                     FirstName = "student",
@@ -115,7 +115,7 @@ namespace IntegrationTests.User
         public void When_DeletingAStudent_Then_TheStudentShouldBeProperlyDeleted() {
             RunOnDatabase(sut => {
                 //Arrange
-                var repository = new StudentRepository(sut);
+                var repository = new UserRepository(sut);
                 var user = new Student()
                 {
                     Id = Guid.NewGuid(),

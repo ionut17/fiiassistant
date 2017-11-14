@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EnsureThatCore" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\User.Data.Access\User.Data.Access.csproj" />
     <ProjectReference Include="..\User.Data.Model\User.Data.Model.csproj" />
   </ItemGroup>

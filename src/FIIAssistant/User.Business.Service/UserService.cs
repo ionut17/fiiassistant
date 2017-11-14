@@ -4,11 +4,11 @@ namespace User.Business.Service
 {
     public class UserService
     {
-        private readonly StudentRepository _studentRepository;
+        private readonly UserRepository _userRepository;
 
-        public UserService(StudentRepository studentRepository)
+        public UserService(UserRepository userRepository)
         {
-            _studentRepository = studentRepository;
+            _userRepository = userRepository;
         }
     }
 }

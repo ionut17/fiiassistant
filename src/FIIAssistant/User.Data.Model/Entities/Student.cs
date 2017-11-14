@@ -2,7 +2,7 @@
 
 namespace User.Data.Model.Entities
 {
-    public class Student : Common.User
+    public class Student : User
     {
         public Student() {
             

@@ -3,8 +3,7 @@ using User.Data.Model.Entities;
 
 namespace User.Data.Model.Interfaces
 {
-    public interface IStudentRepository : IBaseRepository<Student>
-    {
-
+    public interface IUserRepository : IBaseRepository<Student> {
+        User GetUserByEmail(string email);
     }
 }
