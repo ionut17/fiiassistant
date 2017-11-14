@@ -3,15 +3,14 @@ using Timetable.Data.Model.Common;
 
 namespace Timetable.Data.Model.Common
 {
-    public class GroupTimetable : Timetable
+    public class GroupRequest : Request
     {
 
-        public GroupTimetable() { }
+        public GroupRequest() { }
 
-        public GroupTimetable(string baseAddress) : base(baseAddress) { }
-
-        public GroupTimetable(string baseAddress, string group, int year) : base(baseAddress)
+        public GroupRequest(string baseAddress, string group, int year)
         {
+            BaseAddress = baseAddress;
             Group = group;
             Year = year;
         }
@@ -20,7 +19,7 @@ namespace Timetable.Data.Model.Common
 
         public int Year { get; set; }
 
-        public new string GetAddress()
+        public override string GetAddress()
         {
             return String.IsNullOrEmpty(Group) ? BaseAddress : BaseAddress + "/participanti/orar_" + Group + ".html";
         }

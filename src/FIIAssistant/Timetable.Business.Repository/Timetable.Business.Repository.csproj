@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.6.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Timetable.Data.Access\Timetable.Data.Access.csproj" />
     <ProjectReference Include="..\Timetable.Data.Model\Timetable.Data.Model.csproj" />
   </ItemGroup>
