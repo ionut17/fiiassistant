@@ -17,7 +17,7 @@ namespace Server.Logger
                     logger.Log(message);
                     break;
                 case LogContainer.DataBase:
-                    logger = new EventLogger();
+                    logger = new DataBaseLogger();
                     logger.Log(message);
                     break;
                 default:
