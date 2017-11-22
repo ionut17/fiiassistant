@@ -23,5 +23,20 @@ namespace Server.Controllers
                 return NotFound();
             return Ok(result);
         }
+
+        [HttpGet]
+        public IActionResult GetGroupTimetable(string group)
+        {
+
+            var url = string.Format(MicroservicesEndpoints.GroupTimetables, group);
+
+            var result = _restClient.Get(url).Result;
+
+            LogHelper.Log(LogContainer.File, GetType().Name + ": GET returned result");
+
+            if (result == null)
+                return NotFound();
+            return Ok(result);            
+        }
     }
 }

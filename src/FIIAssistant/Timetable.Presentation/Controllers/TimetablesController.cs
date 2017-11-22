@@ -10,5 +10,11 @@ namespace Timetable.Presentation.Controllers
         {
             return Ok(new[] {"A5 timetable", "ISS timetable"});
         }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(string id)
+        {
+            return Ok(new[] { "A5 timetable", "ISS timetable" });
+        }
     }
 }
