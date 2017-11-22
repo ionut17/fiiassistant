@@ -3,7 +3,7 @@ using User.Data.Model.Entities;
 
 namespace User.Data.Access
 {
-    public interface IUserContext
+    public interface IStudentContext
     {
         DbSet<Student> Students { get; set; }
         DbSet<Authentication> Authentications { get; set; }
