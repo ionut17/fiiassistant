@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using Course.Data.Model;
 using Microsoft.AspNetCore.Mvc;
 using Server.Logger;
 using Server.Resources;
@@ -22,6 +23,47 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.Database, message);
             LogHelper.Log(LogContainer.File, message);
             LogHelper.Log(LogContainer.File, message);
+
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] CourseDTO course)
+        {
+            const string url = MicroservicesEndpoints.Courses;
+
+            var result = _restClient.Post(url, course).Result;
+            var message = new LogMessage(Guid.NewGuid(), "Post Course", "CoursesAPIController", "POST");
+            LogHelper.Log(LogContainer.File, message);
+
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public IActionResult Put([FromBody] CourseDTO course)
+        {
+            const string url = MicroservicesEndpoints.Courses;
+
+            var result = _restClient.Put(url, course).Result;
+
+            var message = new LogMessage(Guid.NewGuid(), "Put Course", "CoursesAPIController", "PUT");
+            LogHelper.Log(LogContainer.File, message);
+
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpDelete("{firstName}")]
+        public IActionResult Delete(Guid id)
+        {
+            var url = string.Format(MicroservicesEndpoints.Courses, id);
+
+            var result = _restClient.Delete(url).Result;
 
             if (result == null)
                 return NotFound();

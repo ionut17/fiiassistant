@@ -3,13 +3,13 @@ using User.Data.Model.Entities;
 
 namespace User.Data.Access
 {
-    public class UserContext : DbContext, IUserContext
+    public sealed class StudentContext : DbContext, IStudentContext
     {
-        public UserContext(DbContextOptions<UserContext> options)
+        public StudentContext(DbContextOptions<StudentContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
-
 
         public DbSet<Student> Students { get; set; }
 

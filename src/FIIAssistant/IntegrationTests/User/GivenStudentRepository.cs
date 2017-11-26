@@ -10,7 +10,7 @@ using User.Data.Model.Entities;
 namespace IntegrationTests.User
 {
     [TestClass]
-    public class GivenStudentRepository : BaseIntegrationTest<UserContext>
+    public class GivenStudentRepository : BaseIntegrationTest<StudentContext>
     {
         [TestMethod]
         public void When_GettingAllStudents_Then_AllTheStudentsShouldBeLoaded()
@@ -18,7 +18,7 @@ namespace IntegrationTests.User
             RunOnDatabase(sut =>
             {
                 //Arrange
-                var repository = new UserRepository(sut);
+                var repository = new StudentRepository(sut);
                 var user1 = new Student
                 {
                     Id = Guid.NewGuid(),
@@ -49,7 +49,7 @@ namespace IntegrationTests.User
             RunOnDatabase(sut =>
             {
                 //Arrange
-                var repository = new UserRepository(sut);
+                var repository = new StudentRepository(sut);
                 var user = new Student("Mos")
                 {
                     Id = Guid.NewGuid(),
@@ -73,7 +73,7 @@ namespace IntegrationTests.User
             RunOnDatabase(sut =>
             {
                 //Arrange
-                var repository = new UserRepository(sut);
+                var repository = new StudentRepository(sut);
 
                 var user = new Student
                 {
@@ -98,7 +98,7 @@ namespace IntegrationTests.User
             RunOnDatabase(sut =>
             {
                 //Arrange
-                var repository = new UserRepository(sut);
+                var repository = new StudentRepository(sut);
                 var user = new Student
                 {
                     Id = Guid.NewGuid(),
@@ -124,7 +124,7 @@ namespace IntegrationTests.User
             RunOnDatabase(sut =>
             {
                 //Arrange
-                var repository = new UserRepository(sut);
+                var repository = new StudentRepository(sut);
                 var user = new Student
                 {
                     Id = Guid.NewGuid(),
@@ -143,27 +143,27 @@ namespace IntegrationTests.User
             });
         }
 
-        protected override void RunOnMemory(Action<UserContext> databaseAction)
+        protected override void RunOnMemory(Action<StudentContext> databaseAction)
         {
-            var options = new DbContextOptionsBuilder<UserContext>()
+            var options = new DbContextOptionsBuilder<StudentContext>()
                 .UseInMemoryDatabase("UserDB")
                 .Options;
 
-            using (var context = new UserContext(options))
+            using (var context = new StudentContext(options))
             {
                 databaseAction(context);
             }
         }
 
-        protected override void RunOnSqlServer(Action<UserContext> databaseAction)
+        protected override void RunOnSqlServer(Action<StudentContext> databaseAction)
         {
             var connection =
                 @"Server = .\SQLEXPRESS; Database = FIIAssistant.Development.Test; Trusted_Connection = True;";
-            var options = new DbContextOptionsBuilder<UserContext>()
+            var options = new DbContextOptionsBuilder<StudentContext>()
                 .UseSqlServer(connection)
                 .Options;
 
-            using (var context = new UserContext(options))
+            using (var context = new StudentContext(options))
             {
                 databaseAction(context);
             }

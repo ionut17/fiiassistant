@@ -14,8 +14,7 @@ namespace User.Presentation.Providers
 {
     public class JwtProvider
     {
-        private static readonly string PrivateKey = "private_key_1234567890"
-            ; //TODO: generate proper private key, extract in properties file
+        private static readonly string PrivateKey = "private_key_1234567890"; //TODO: generate proper private key, extract in properties file
 
         public static readonly SymmetricSecurityKey SecurityKey =
             new SymmetricSecurityKey(Encoding.ASCII.GetBytes(PrivateKey));

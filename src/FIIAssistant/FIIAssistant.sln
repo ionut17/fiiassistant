@@ -1,11 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{9A6FC6F3-877B-427F-9DA2-49335A4FAA2B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{464DCB77-AC52-4438-853E-FF6403A676F7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A48F54B6-9736-4B90-895B-A974FEF9048A} = {A48F54B6-9736-4B90-895B-A974FEF9048A}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{48395B6B-3865-4FE8-A52C-22D533D4057A}"
 EndProject
@@ -32,6 +35,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Course.Business.Service", "Course.Business.Service\Course.Business.Service.csproj", "{249D546C-D5F6-4DBD-8EA8-61FE4DD29D15}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Course.Presentation", "Course.Presentation\Course.Presentation.csproj", "{613D68BC-87A8-4261-B45D-0B142CC88CD4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A48F54B6-9736-4B90-895B-A974FEF9048A} = {A48F54B6-9736-4B90-895B-A974FEF9048A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.Data.Model", "User.Data.Model\User.Data.Model.csproj", "{73A52274-5612-49F4-B59D-859A6C7AA528}"
 EndProject
