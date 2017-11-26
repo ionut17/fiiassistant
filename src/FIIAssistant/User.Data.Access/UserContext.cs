@@ -7,7 +7,8 @@ namespace User.Data.Access
     {
         public UserContext(DbContextOptions<UserContext> options)
             : base(options)
-        { }
+        {
+        }
 
 
         public DbSet<Student> Students { get; set; }

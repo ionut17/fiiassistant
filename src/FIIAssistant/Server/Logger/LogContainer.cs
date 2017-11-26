@@ -3,6 +3,6 @@
     public enum LogContainer
     {
         File,
-        DataBase
+        Database
     }
 }

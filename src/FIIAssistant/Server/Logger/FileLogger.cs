@@ -3,11 +3,11 @@ using System.IO;
 
 namespace Server.Logger
 {
-    public class FileLogger : Logger
+    public class FileLogger : ILogger
     {
         private const string FilePath = "./FIIAssistantLogging.txt";
 
-        public override void Log(string message)
+        public void Log(LogMessage message)
         {
             using (var streamWriter = File.AppendText(FilePath))
             {

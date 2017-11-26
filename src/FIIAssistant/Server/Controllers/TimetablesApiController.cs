@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Server.Logger;
 using Server.Resources;
 using Server.RestClients;
@@ -17,7 +18,9 @@ namespace Server.Controllers
 
             var result = _restClient.Get(url).Result;
 
-            LogHelper.Log(LogContainer.File, GetType().Name + ": GET returned result");
+            var message = new LogMessage(Guid.NewGuid(), "All timetables", "TimetableAPIController", "GET");
+            LogHelper.Log(LogContainer.Database, message);
+            LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
                 return NotFound();

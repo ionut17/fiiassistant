@@ -3,7 +3,8 @@
     public class Student : User
     {
         public Student()
-        { }
+        {
+        }
 
         public Student(string firstName)
         {

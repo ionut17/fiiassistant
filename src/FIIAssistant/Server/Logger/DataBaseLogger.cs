@@ -1,10 +1,19 @@
 ﻿namespace Server.Logger
 {
-    public class DataBaseLogger : Logger
+    public class DatabaseLogger : ILogger
     {
-        public override void Log(string message)
+        public DatabaseLoggerContext Context;
+
+        public DatabaseLogger()
         {
-            // Implement connection with the database
+            Context = new DatabaseLoggerContext();
         }
+
+        public void Log(LogMessage message)
+        {
+            Context.Add(message);
+            Context.SaveChanges();
+        }
+
     }
 }

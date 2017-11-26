@@ -12,10 +12,6 @@ namespace Server
         public static void Main(string[] args)
         {
             FileLogger.ClearLogging();
-            LogHelper.Log(LogContainer.File, "Hello there! Application started...");
-
-            log.Info("Hello there! Application started...");
-
             BuildWebHost(args).Run();
         }
 

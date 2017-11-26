@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Server.Logger;
 using Server.Resources;
 using Server.RestClients;
@@ -18,7 +19,10 @@ namespace Server.Controllers
 
             var result = _restClient.Get(url).Result;
 
-            LogHelper.Log(LogContainer.File, GetType().Name + ": GET returned result");
+            var message = new LogMessage(Guid.NewGuid(), "All students", "StudentsAPIController", "GET");
+            LogHelper.Log(LogContainer.Database, message);
+            LogHelper.Log(LogContainer.File, message);
+
 
             if (result == null)
                 return NotFound();
@@ -32,8 +36,10 @@ namespace Server.Controllers
 
             var result = _restClient.Get(url).Result;
 
-            LogHelper.Log(LogContainer.File,
-                GetType().Name + ": GET for student with firstName " + firstName + " returned result");
+            var message = new LogMessage(Guid.NewGuid(), "Student with the first name: " + firstName,
+                "StudentsAPIController", "GET");
+            LogHelper.Log(LogContainer.Database, message);
+            LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
                 return NotFound();
@@ -47,7 +53,10 @@ namespace Server.Controllers
 
             var result = _restClient.Post(url, student).Result;
 
-            LogHelper.Log(LogContainer.File, GetType().Name + ": POST returned result");
+            var message = new LogMessage(Guid.NewGuid(), "Added student with the first name: " + student.FirstName,
+                "StudentsAPIController", "POST");
+            LogHelper.Log(LogContainer.Database, message);
+            LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
                 return NotFound();
@@ -61,8 +70,9 @@ namespace Server.Controllers
 
             var result = _restClient.Put(url, student).Result;
 
-            LogHelper.Log(LogContainer.File,
-                GetType().Name + ": PUT for student with firstName " + student.FirstName + " returned result");
+            var message = new LogMessage(Guid.NewGuid(), "Put result.", "StudentsAPIController", "PUT");
+            LogHelper.Log(LogContainer.Database, message);
+            LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
                 return NotFound();
@@ -75,6 +85,11 @@ namespace Server.Controllers
             var url = string.Format(MicroservicesEndpoints.StudentByFirstName, firstName);
 
             var result = _restClient.Delete(url).Result;
+
+            var message = new LogMessage(Guid.NewGuid(), "Added student with the first name: " + firstName,
+                "StudentsAPIController", "DELETE");
+            LogHelper.Log(LogContainer.Database, message);
+            LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
                 return NotFound();

@@ -6,7 +6,7 @@ namespace User.Data.Model.Entities
 {
     public class Authentication : Entity
     {
-        public Guid Id { get; set; }
+        public new Guid Id { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }
