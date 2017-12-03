@@ -13,6 +13,7 @@ namespace Timetable.Business.Repository
     {
         private readonly WebClient _webClient;
         private readonly Logger _logger;
+        private static string[] _days = { "Luni", "Marti", "Miercuri", "Joi", "Vineri" };
 
         public TimetableRepository()
         {
@@ -34,13 +35,55 @@ namespace Timetable.Business.Repository
                 using (var stream = response.GetResponseStream())
                 {
                     document.Load(stream, Encoding.GetEncoding("ISO-8859-1"));
-                    weekTimetable.Title = document.DocumentNode.Descendants("h2").First().InnerText.Replace("\r\n","").Trim();
+                    weekTimetable.Title = ExtractContent(document.DocumentNode.Descendants("h2").First().InnerText);
                     var table = document.DocumentNode.Descendants("table").First();
+                    var rows = table.SelectNodes("//tr");
+                    DayTimetable day = new DayTimetable();
+                    var index = 0;
+                    foreach (var row in rows)
+                    {
+                        if (row.InnerText.Contains("De la") && index > 0)
+                        {
+                            break;
+                        }
+                        //Check if it's a day of the week
+                        var currentContent = ExtractContent(row.InnerText);
+                        if (_days.Contains(currentContent))
+                        {
+                            day = new DayTimetable
+                            {
+                                Day = currentContent
+                            };
+                            weekTimetable.Days.Add(day);
+                        }
+                        //Add entries to the day
+                        else if (index > 0)
+                        {
+                            var cols = row.ChildNodes;
+                            day.Entries.Add(new EntryTimetable
+                            {
+                                StartHour = ExtractContent(cols[1].InnerText),
+                                EndHour = ExtractContent(cols[3].InnerText),
+                                Groups = ExtractContent(cols[5].InnerText),
+                                Course = ExtractContent(cols[7].InnerText),
+                                Type = ExtractContent(cols[9].InnerText),
+                                Lecturer = ExtractContent(cols[11].InnerText),
+                                Location = ExtractContent(cols[13].InnerText),
+                                Package = ExtractContent(cols[17].InnerText)
+                            });
+                        }
+                        index++;
+                    }
                     _logger.Log(weekTimetable);
                 }
             }
 
             return weekTimetable;
+        }
+
+        private static string ExtractContent(string from)
+        {
+            return from.Replace("\r\n", "").Trim();
         }
     }
 }

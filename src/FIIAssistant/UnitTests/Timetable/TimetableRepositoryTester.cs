@@ -32,5 +32,19 @@ namespace UnitTests.Timetable
             };
             Assert.AreEqual(repository.GetTimetable(groupRequest).Title, "Orar Master ingineria sistemelor soft, anul 1");
         }
+
+        [TestMethod]
+        public void When_TimetableRepositoryGetsGroupRequest_Then_ItReturnsTimetableWithContent()
+        {
+            var repository = new TimetableRepository<GroupRequest>();
+            var groupRequest = new GroupRequest
+            {
+                BaseAddress = "https://profs.info.uaic.ro/~orar",
+                Group = "MIS1",
+                Year = 4
+            };
+            Assert.AreEqual(repository.GetTimetable(groupRequest).Days[0].Entries.Count, 3);
+        }
+
     }
 }
