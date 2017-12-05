@@ -9,7 +9,7 @@ namespace User.Business.Repository
 {
     public class StudentRepository : BaseRepository<Student>, IStudentRepository
     {
-        private readonly StudentContext _context;
+        private readonly IStudentContext _context;
 
         public StudentRepository(StudentContext context) : base(context)
         {
