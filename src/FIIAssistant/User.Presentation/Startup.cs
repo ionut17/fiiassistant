@@ -8,6 +8,7 @@ using User.Business.Repository;
 using User.Business.Service;
 using User.Data.Access;
 using User.Data.Model.Interfaces;
+using User.Data.Model.Interfaces.Repositories;
 using User.Data.Model.Interfaces.Services;
 using User.Presentation.Filters;
 

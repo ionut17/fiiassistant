@@ -1,20 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Timetable.Business.Service;
+using Timetable.Data.Model.Common;
 
 namespace Timetable.Presentation.Controllers
 {
     [Route("api/[controller]")]
     public class TimetablesController : Controller
     {
+        public TableService Service { get; set; } = new TableService();
+
+        [HttpGet("{group}/{year}")]
+        public IActionResult Get(string group, int year)
+        {
+            var request = new GroupRequest
+            {
+                Group = group,
+                Year = year,
+                BaseAddress = "https://profs.info.uaic.ro/~orar"
+            };
+            var result = Service.GetTimetable(request);
+            return Ok(result);
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new[] {"A5 timetable", "ISS timetable"});
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult Get(string id)
-        {
-            return Ok(new[] {"A5 timetable", "ISS timetable"});
+            return Ok("works");
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using User.Data.Model.Entities;
 using User.Data.Model.Interfaces;
+using User.Data.Model.Interfaces.Repositories;
 
 namespace User.Business.Repository
 {

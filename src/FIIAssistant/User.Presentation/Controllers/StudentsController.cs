@@ -2,7 +2,7 @@
 using EnsureThat;
 using Microsoft.AspNetCore.Mvc;
 using User.Data.Model.Entities;
-using User.Data.Model.Interfaces;
+using User.Data.Model.Interfaces.Repositories;
 using User.Presentation.Dtos;
 
 namespace User.Presentation.Controllers

@@ -1,5 +1,6 @@
 ﻿using EnsureThat;
 using User.Data.Model.Interfaces;
+using User.Data.Model.Interfaces.Repositories;
 using User.Data.Model.Interfaces.Services;
 
 namespace User.Business.Service

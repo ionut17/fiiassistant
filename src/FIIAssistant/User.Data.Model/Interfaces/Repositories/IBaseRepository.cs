@@ -2,7 +2,7 @@
 using System.Linq;
 using User.Data.Model.Common;
 
-namespace User.Data.Model.Interfaces
+namespace User.Data.Model.Interfaces.Repositories
 {
     public interface IBaseRepository<TEntity> where TEntity : Entity
     {
