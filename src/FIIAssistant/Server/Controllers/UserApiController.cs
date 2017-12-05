@@ -20,6 +20,7 @@ namespace Server.Controllers
             if (student == null)
                 return NotFound();
 //            var courses = _restClient.Get(MicroservicesEndpoints.C)
+            return Ok();
         }
 
         [HttpPost]
