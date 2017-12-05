@@ -25,10 +25,7 @@ namespace User.Presentation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(new ValidateModelStateFilter());
-            });
+            services.AddMvc(options => { options.Filters.Add(new ValidateModelStateFilter()); });
 
             var connection = Configuration.GetConnectionString("UserDB");
             services.AddDbContext<StudentContext>(opts => opts.UseSqlServer(connection));
@@ -49,13 +46,13 @@ namespace User.Presentation
         {
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FIIAssistant - User component V1");
-            });
+            app.UseSwaggerUI(
+                c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "FIIAssistant - User component V1"); });
 
             if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
+            }
 
             app.UseMvc();
         }

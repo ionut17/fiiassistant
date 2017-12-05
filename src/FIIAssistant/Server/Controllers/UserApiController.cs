@@ -18,7 +18,9 @@ namespace Server.Controllers
         {
             var student = _restClient.Get(string.Format(MicroservicesEndpoints.StudentByEmail, loginInfo.Email));
             if (student == null)
+            {
                 return NotFound();
+            }
 //            var courses = _restClient.Get(MicroservicesEndpoints.C)
             return Ok();
         }
@@ -71,7 +73,9 @@ namespace Server.Controllers
 
 
             if (result == null)
+            {
                 return NotFound();
+            }
             return Ok(result);
         }
 
@@ -88,7 +92,9 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
+            {
                 return NotFound();
+            }
             return Ok(result);
         }
 
@@ -105,7 +111,9 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
+            {
                 return NotFound();
+            }
             return Ok(result);
         }
 
@@ -121,7 +129,9 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
+            {
                 return NotFound();
+            }
             return Ok(result);
         }
 
@@ -138,7 +148,9 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
+            {
                 return NotFound();
+            }
             return Ok(result);
         }
     }

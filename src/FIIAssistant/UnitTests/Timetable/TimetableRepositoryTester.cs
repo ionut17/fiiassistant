@@ -30,7 +30,8 @@ namespace UnitTests.Timetable
                 Group = "MIS1",
                 Year = 4
             };
-            Assert.AreEqual(repository.GetTimetable(groupRequest).Title, "Orar Master ingineria sistemelor soft, anul 1");
+            Assert.AreEqual(repository.GetTimetable(groupRequest).Title,
+                "Orar Master ingineria sistemelor soft, anul 1");
         }
 
         [TestMethod]
@@ -45,6 +46,5 @@ namespace UnitTests.Timetable
             };
             Assert.AreEqual(repository.GetTimetable(groupRequest).Days[0].Entries.Count, 3);
         }
-
     }
 }

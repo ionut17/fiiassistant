@@ -1,6 +1,6 @@
-﻿using Course.Data.Model;
+﻿using System;
+using Course.Data.Model;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Course.Presentation.Controllers
 {
@@ -32,5 +32,4 @@ namespace Course.Presentation.Controllers
             return Ok(new CourseDTO());
         }
     }
-
 }

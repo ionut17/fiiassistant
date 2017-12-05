@@ -30,7 +30,9 @@ namespace User.Presentation.Controllers
         {
             var result = _studentRepository.GetById(id);
             if (result == null)
+            {
                 return NotFound();
+            }
             return Ok(result);
         }
 

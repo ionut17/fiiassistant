@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Timetable.Business.Repository
+﻿namespace Timetable.Business.Repository
 {
-    class DocumentLoader
+    internal class DocumentLoader
     {
-
-
-
     }
 }

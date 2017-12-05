@@ -22,7 +22,10 @@ namespace User.Business.Repository
         {
             var authEntity = GetById(user.Id);
 
-            if (authEntity == null) return false;
+            if (authEntity == null)
+            {
+                return false;
+            }
 
             var hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password,

@@ -45,7 +45,10 @@ namespace User.Business.Repository
         {
             var entity = _context.Set<TEntity>().Single(e => e.Id == id);
 
-            if (entity == null) return;
+            if (entity == null)
+            {
+                return;
+            }
 
             _context.Set<TEntity>().Remove(entity);
             _context.SaveChanges();

@@ -14,7 +14,8 @@ namespace User.Presentation.Providers
 {
     public class JwtProvider
     {
-        private static readonly string PrivateKey = "private_key_1234567890"; //TODO: generate proper private key, extract in properties file
+        private static readonly string PrivateKey = "private_key_1234567890"
+            ; //TODO: generate proper private key, extract in properties file
 
         public static readonly SymmetricSecurityKey SecurityKey =
             new SymmetricSecurityKey(Encoding.ASCII.GetBytes(PrivateKey));
@@ -41,11 +42,16 @@ namespace User.Presentation.Providers
         public Task Invoke(HttpContext httpContext)
         {
             //Check if the request path matches login path
-            if (!httpContext.Request.Path.Equals(TokenEndPoint, StringComparison.Ordinal)) return _next(httpContext);
+            if (!httpContext.Request.Path.Equals(TokenEndPoint, StringComparison.Ordinal))
+            {
+                return _next(httpContext);
+            }
 
             // Check if the current request is a valid POST with the appropriate content type (application/x-www-form-urlencoded)
             if (httpContext.Request.Method.Equals("POST") && httpContext.Request.HasFormContentType)
+            {
                 return CreateToken(httpContext);
+            }
 
             // Not OK: output a 400 - Bad request HTTP error.
             httpContext.Response.StatusCode = 400;

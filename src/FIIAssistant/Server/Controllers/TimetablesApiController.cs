@@ -23,7 +23,9 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
+            {
                 return NotFound();
+            }
             return Ok(result);
         }
 
@@ -37,7 +39,9 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
+            {
                 return NotFound();
+            }
             return Ok(result);
         }
     }

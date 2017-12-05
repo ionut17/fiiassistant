@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Timetable.Data.Model.Common
+﻿namespace Timetable.Data.Model.Common
 {
     public class EntryTimetable
     {
@@ -21,6 +17,5 @@ namespace Timetable.Data.Model.Common
         public string Location { get; set; }
 
         public string Package { get; set; }
-
     }
 }

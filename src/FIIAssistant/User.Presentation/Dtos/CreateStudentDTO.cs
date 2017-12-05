@@ -13,9 +13,9 @@ namespace User.Presentation.Dtos
         [MinLength(3)]
         public string LastName { get; set; }
 
-        [Range(1,3)]
+        [Range(1, 3)]
         public int Year { get; set; }
-        
+
         [MaxLength(3)]
         public string Group { get; set; }
     }

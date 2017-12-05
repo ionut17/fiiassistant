@@ -11,26 +11,25 @@ namespace Timetable.Business.Repository
     public class TimetableRepository<TRequest> : ITimetableRepository<TRequest, WeekTimetable>
         where TRequest : Request
     {
-        private readonly WebClient _webClient;
+        private readonly string[] _days = {"Luni", "Marti", "Miercuri", "Joi", "Vineri"};
         private readonly Logger _logger;
-        private static string[] _days = { "Luni", "Marti", "Miercuri", "Joi", "Vineri" };
+        private readonly WebClient _webClient;
 
         public TimetableRepository()
         {
             _webClient = new WebClient();
-            _logger = new Logger();;
+            _logger = new Logger();
         }
 
         public WeekTimetable GetTimetable(TRequest entity)
         {
             var weekTimetable = new WeekTimetable();
-            var document = new HtmlDocument();
-            document.OptionReadEncoding = false;
+            var document = new HtmlDocument {OptionReadEncoding = false};
 
             var url = new Uri(entity.GetAddress());
             var request = (HttpWebRequest) WebRequest.Create(url);
-            request.Method = "GET"; 
-            using (var response = (HttpWebResponse)request.GetResponse())
+            request.Method = "GET";
+            using (var response = (HttpWebResponse) request.GetResponse())
             {
                 using (var stream = response.GetResponseStream())
                 {
@@ -38,7 +37,7 @@ namespace Timetable.Business.Repository
                     weekTimetable.Title = ExtractContent(document.DocumentNode.Descendants("h2").First().InnerText);
                     var table = document.DocumentNode.Descendants("table").First();
                     var rows = table.SelectNodes("//tr");
-                    DayTimetable day = new DayTimetable();
+                    var day = new DayTimetable();
                     var index = 0;
                     foreach (var row in rows)
                     {

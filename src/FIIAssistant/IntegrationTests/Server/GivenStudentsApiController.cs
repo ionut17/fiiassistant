@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Server.Controllers;
 
 namespace IntegrationTests.Server
@@ -12,7 +11,8 @@ namespace IntegrationTests.Server
         [ClassInitialize]
         public static void Initialize(TestContext testContext)
         {
-            Sut = new UserApiController();;
+            Sut = new UserApiController();
+            ;
         }
 
         [TestMethod]
