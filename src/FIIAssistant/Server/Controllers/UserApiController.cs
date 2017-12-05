@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Server.Entities;
 using Server.Logger;
 using Server.Resources;
 using Server.RestClients;
@@ -8,9 +9,53 @@ using User.Data.Model.Entities;
 namespace Server.Controllers
 {
     [Route("api/[controller]")]
-    public class StudentsApiController : Controller
+    public class UserApiController : Controller
     {
         private readonly RestClient _restClient = new RestClient();
+
+        [HttpPost]
+        public IActionResult Login([FromBody] LoginInfo loginInfo)
+        {
+            var student = _restClient.Get(string.Format(MicroservicesEndpoints.StudentByEmail, loginInfo.Email));
+            if (student == null)
+                return NotFound();
+//            var courses = _restClient.Get(MicroservicesEndpoints.C)
+        }
+
+        [HttpPost]
+        public IActionResult Register([FromBody] RegisterInfo registerInfo)
+        {
+            var student = _restClient.Post(MicroservicesEndpoints.Students, new
+            {
+                registerInfo.FirstName,
+                registerInfo.LastName,
+                registerInfo.Email,
+                Group = registerInfo.GroupName
+            });
+            var courses = _restClient.Post(MicroservicesEndpoints.CourseStudents, new
+            {
+                student,
+                courses = registerInfo.CoursesNames
+            });
+            return Ok(
+                new
+                {
+                    student,
+                    courses
+                });
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            var courses = _restClient.Get(MicroservicesEndpoints.Courses);
+            var groups = _restClient.Get(MicroservicesEndpoints.Groups);
+            return Ok(new
+            {
+                courses,
+                groups
+            });
+        }
 
         [HttpGet]
         public IActionResult Get()
@@ -32,7 +77,7 @@ namespace Server.Controllers
         [HttpGet("{firstName}")]
         public IActionResult Get(string firstName)
         {
-            var url = string.Format(MicroservicesEndpoints.StudentByFirstName, firstName);
+            var url = string.Format(MicroservicesEndpoints.StudentByEmail, firstName);
 
             var result = _restClient.Get(url).Result;
 
@@ -82,7 +127,7 @@ namespace Server.Controllers
         [HttpDelete("{firstName}")]
         public IActionResult Delete(string firstName)
         {
-            var url = string.Format(MicroservicesEndpoints.StudentByFirstName, firstName);
+            var url = string.Format(MicroservicesEndpoints.StudentByEmail, firstName);
 
             var result = _restClient.Delete(url).Result;
 

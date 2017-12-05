@@ -14,6 +14,5 @@
             Context.Add(message);
             Context.SaveChanges();
         }
-
     }
 }

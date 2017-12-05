@@ -12,11 +12,11 @@ namespace Server.Logger
             Method = method;
         }
 
-        public string Timestamp { get; set; }
         public Guid Id { get; set; }
         public string Message { get; set; }
         public string Source { get; set; }
         public string Method { get; set; }
+
 
         public override string ToString()
         {
