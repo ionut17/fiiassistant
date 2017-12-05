@@ -4,7 +4,6 @@ using Server.Entities;
 using Server.Logger;
 using Server.Resources;
 using Server.RestClients;
-using User.Data.Model.Entities;
 
 namespace Server.Controllers
 {
@@ -13,33 +12,18 @@ namespace Server.Controllers
     {
         private readonly RestClient _restClient = new RestClient();
 
+        [Route("api/login")]
         [HttpPost]
         public IActionResult Login([FromBody] LoginInfo loginInfo)
         {
-            var student = _restClient.Get(string.Format(MicroservicesEndpoints.StudentByEmail, loginInfo.Email));
+            var student = _restClient.Get(string.Format(MicroservicesEndpoints.StudentById, loginInfo.Email));
             if (student == null)
             {
                 return NotFound();
             }
-//            var courses = _restClient.Get(MicroservicesEndpoints.C)
-            return Ok();
-        }
 
-        [HttpPost]
-        public IActionResult Register([FromBody] RegisterInfo registerInfo)
-        {
-            var student = _restClient.Post(MicroservicesEndpoints.Students, new
-            {
-                registerInfo.FirstName,
-                registerInfo.LastName,
-                registerInfo.Email,
-                Group = registerInfo.GroupName
-            });
-            var courses = _restClient.Post(MicroservicesEndpoints.CourseStudents, new
-            {
-                student,
-                courses = registerInfo.CoursesNames
-            });
+            var courses = _restClient.Get(MicroservicesEndpoints.Courses);
+
             return Ok(
                 new
                 {
@@ -48,11 +32,40 @@ namespace Server.Controllers
                 });
         }
 
+        [Route("api/register")]
+        [HttpPost]
+        public IActionResult Register([FromBody] RegisterInfo registerInfo)
+        {
+            var student = _restClient.Post(MicroservicesEndpoints.Students, new
+            {
+                registerInfo.Email,
+                registerInfo.FirstName,
+                registerInfo.LastName,
+                registerInfo.Year,
+                registerInfo.Group
+            });
+
+            var courses = _restClient.Post(MicroservicesEndpoints.CourseStudents, new
+            {
+                student,
+                courses = registerInfo.CoursesNames
+            });
+
+            return Ok(
+                new
+                {
+                    student,
+                    courses
+                });
+        }
+
+        [Route("api/register")]
         [HttpGet]
         public IActionResult Register()
         {
             var courses = _restClient.Get(MicroservicesEndpoints.Courses);
             var groups = _restClient.Get(MicroservicesEndpoints.Groups);
+
             return Ok(new
             {
                 courses,
@@ -79,14 +92,14 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{firstName}")]
-        public IActionResult Get(string firstName)
+        [HttpGet("{id}")]
+        public IActionResult Get(Guid id)
         {
-            var url = string.Format(MicroservicesEndpoints.StudentByEmail, firstName);
+            var url = string.Format(MicroservicesEndpoints.StudentById, id);
 
             var result = _restClient.Get(url).Result;
 
-            var message = new LogMessage(Guid.NewGuid(), "Student with the first name: " + firstName,
+            var message = new LogMessage(Guid.NewGuid(), "Student with id: " + id,
                 "StudentsAPIController", "GET");
             LogHelper.Log(LogContainer.Database, message);
             LogHelper.Log(LogContainer.File, message);
@@ -99,13 +112,13 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Student student)
+        public IActionResult Post([FromBody] CreateStudent student)
         {
             const string url = MicroservicesEndpoints.Students;
 
             var result = _restClient.Post(url, student).Result;
 
-            var message = new LogMessage(Guid.NewGuid(), "Added student with the first name: " + student.FirstName,
+            var message = new LogMessage(Guid.NewGuid(), "Added student with the email: " + student.Email,
                 "StudentsAPIController", "POST");
             LogHelper.Log(LogContainer.Database, message);
             LogHelper.Log(LogContainer.File, message);
@@ -117,10 +130,10 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        public IActionResult Put([FromBody] Student student)
+        [HttpPut("{id}")]
+        public IActionResult Put(Guid id, [FromBody] UpdateStudent student)
         {
-            const string url = MicroservicesEndpoints.Students;
+            string url = string.Format(MicroservicesEndpoints.StudentById, id);
 
             var result = _restClient.Put(url, student).Result;
 
@@ -135,14 +148,14 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{firstName}")]
-        public IActionResult Delete(string firstName)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
         {
-            var url = string.Format(MicroservicesEndpoints.StudentByEmail, firstName);
+            var url = string.Format(MicroservicesEndpoints.StudentById, id);
 
             var result = _restClient.Delete(url).Result;
 
-            var message = new LogMessage(Guid.NewGuid(), "Added student with the first name: " + firstName,
+            var message = new LogMessage(Guid.NewGuid(), "Deleted student with id: " + id,
                 "StudentsAPIController", "DELETE");
             LogHelper.Log(LogContainer.Database, message);
             LogHelper.Log(LogContainer.File, message);
