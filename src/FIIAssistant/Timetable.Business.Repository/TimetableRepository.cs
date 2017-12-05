@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.Linq;
+using System.Net;
 using System.Text;
 using HtmlAgilityPack;
 using Timetable.Data.Model.Common;
@@ -11,6 +13,7 @@ namespace Timetable.Business.Repository
     {
         private readonly WebClient _webClient;
         private readonly Logger _logger;
+        private static string[] _days = { "Luni", "Marti", "Miercuri", "Joi", "Vineri" };
 
         public TimetableRepository()
         {
@@ -20,13 +23,67 @@ namespace Timetable.Business.Repository
 
         public WeekTimetable GetTimetable(TRequest entity)
         {
+            var weekTimetable = new WeekTimetable();
             var document = new HtmlDocument();
-            document.Load(_webClient.OpenRead(entity.GetAddress()), Encoding.UTF8);
-            _logger.Log(document);
-            //Other business logic
-            var type = document.GetType();
-            _logger.Ok();
-            return new WeekTimetable();
+            document.OptionReadEncoding = false;
+
+            var url = new Uri(entity.GetAddress());
+            var request = (HttpWebRequest) WebRequest.Create(url);
+            request.Method = "GET"; 
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                using (var stream = response.GetResponseStream())
+                {
+                    document.Load(stream, Encoding.GetEncoding("ISO-8859-1"));
+                    weekTimetable.Title = ExtractContent(document.DocumentNode.Descendants("h2").First().InnerText);
+                    var table = document.DocumentNode.Descendants("table").First();
+                    var rows = table.SelectNodes("//tr");
+                    DayTimetable day = new DayTimetable();
+                    var index = 0;
+                    foreach (var row in rows)
+                    {
+                        if (row.InnerText.Contains("De la") && index > 0)
+                        {
+                            break;
+                        }
+                        //Check if it's a day of the week
+                        var currentContent = ExtractContent(row.InnerText);
+                        if (_days.Contains(currentContent))
+                        {
+                            day = new DayTimetable
+                            {
+                                Day = currentContent
+                            };
+                            weekTimetable.Days.Add(day);
+                        }
+                        //Add entries to the day
+                        else if (index > 0)
+                        {
+                            var cols = row.ChildNodes;
+                            day.Entries.Add(new EntryTimetable
+                            {
+                                StartHour = ExtractContent(cols[1].InnerText),
+                                EndHour = ExtractContent(cols[3].InnerText),
+                                Groups = ExtractContent(cols[5].InnerText),
+                                Course = ExtractContent(cols[7].InnerText),
+                                Type = ExtractContent(cols[9].InnerText),
+                                Lecturer = ExtractContent(cols[11].InnerText),
+                                Location = ExtractContent(cols[13].InnerText),
+                                Package = ExtractContent(cols[17].InnerText)
+                            });
+                        }
+                        index++;
+                    }
+                    _logger.Log(weekTimetable);
+                }
+            }
+
+            return weekTimetable;
+        }
+
+        private static string ExtractContent(string from)
+        {
+            return from.Replace("\r\n", "").Trim();
         }
     }
 }
