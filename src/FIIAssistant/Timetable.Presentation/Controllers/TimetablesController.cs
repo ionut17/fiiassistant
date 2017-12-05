@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Timetable.Business.Service;
 using Timetable.Data.Model.Common;
 
@@ -18,14 +19,16 @@ namespace Timetable.Presentation.Controllers
                 Year = year,
                 BaseAddress = "https://profs.info.uaic.ro/~orar"
             };
-            var result = Service.GetTimetable(request);
-            return Ok(result);
-        }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok("works");
+            try
+            {
+                var result = Service.GetTimetable(request);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }

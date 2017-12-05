@@ -18,7 +18,7 @@
         //Timetable microservice
         public const string Timetables = "http://localhost:6459/api/timetables";
 
-        public const string GroupTimetables = "http://localhost:6459/api/timetables/{0}";
+        public const string GroupTimetables = "http://localhost:6459/api/timetables/{0}/{1}";
 
         //Server
         public const string Server = "http://localhost:6438/api/";
