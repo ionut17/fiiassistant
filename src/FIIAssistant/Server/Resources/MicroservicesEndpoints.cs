@@ -5,7 +5,7 @@
         //Students microservice
         public const string Students = "http://localhost:6497/api/students";
 
-        public const string StudentByEmail = "http://localhost:6497/api/students/{0}";
+        public const string StudentById = "http://localhost:6497/api/students/{0}";
 
         public const string Groups = "http://localhost:6497/api/groups";
 
