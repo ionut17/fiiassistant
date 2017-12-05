@@ -3,6 +3,7 @@ using EnsureThat;
 using Microsoft.AspNetCore.Mvc;
 using User.Data.Model.Entities;
 using User.Data.Model.Interfaces.Repositories;
+using User.Data.Model.Interfaces.Services;
 using User.Presentation.Dtos;
 
 namespace User.Presentation.Controllers
@@ -11,12 +12,15 @@ namespace User.Presentation.Controllers
     public class StudentsController : Controller
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly IAuthenticationService _authenticationService;
 
-        public StudentsController(IStudentRepository studentRepository)
+        public StudentsController(IStudentRepository studentRepository, IAuthenticationService authenticationService)
         {
             Ensure.That(studentRepository).IsNotNull();
+            Ensure.That(authenticationService).IsNotNull();
 
             _studentRepository = studentRepository;
+            _authenticationService = authenticationService;
         }
 
         [HttpGet]
@@ -49,6 +53,8 @@ namespace User.Presentation.Controllers
             };
 
             _studentRepository.Add(student);
+            _authenticationService.RegisterUser(student, studentDto.Password);
+
             return Ok(_studentRepository.GetAll());
         }
 
