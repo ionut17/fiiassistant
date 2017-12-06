@@ -47,7 +47,8 @@ namespace Timetable.Business.Repository
                         }
                         //Check if it's a day of the week
                         var currentContent = ExtractContent(row.InnerText);
-                        if (_days.Contains(currentContent))
+                        var currentDay = currentContent.Split(" ")[0];
+                        if (_days.Contains(currentDay))
                         {
                             day = new DayTimetable
                             {
