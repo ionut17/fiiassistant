@@ -35,7 +35,7 @@ namespace UnitTests.Timetable
         }
 
         [TestMethod]
-        public void When_TimetableRepositoryGetsGroupRequest_Then_ItReturnsTimetableWithContent()
+        public void When_TimetableRepositoryGetsMasterGroupRequest_Then_ItReturnsTimetableWithContent()
         {
             var repository = new TimetableRepository<GroupRequest>();
             var groupRequest = new GroupRequest
@@ -45,6 +45,19 @@ namespace UnitTests.Timetable
                 Year = 4
             };
             Assert.AreEqual(repository.GetTimetable(groupRequest).Days[0].Entries.Count, 3);
+        }
+
+        [TestMethod]
+        public void When_TimetableRepositoryGetsBachelorsGroupRequest_Then_ItReturnsTimetableWithContent()
+        {
+            var repository = new TimetableRepository<GroupRequest>();
+            var groupRequest = new GroupRequest
+            {
+                BaseAddress = "https://profs.info.uaic.ro/~orar",
+                Group = "I3A5",
+                Year = 3
+            };
+            Assert.AreEqual(repository.GetTimetable(groupRequest).Days[0].Entries.Count, 4);
         }
     }
 }
