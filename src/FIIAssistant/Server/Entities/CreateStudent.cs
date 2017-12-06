@@ -18,5 +18,8 @@ namespace Server.Entities
 
         [MaxLength(3)]
         public string Group { get; set; }
+
+        [MinLength(5)]
+        public string Password { get; set; }
     }
 }
