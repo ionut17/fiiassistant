@@ -11,8 +11,8 @@ namespace User.Presentation.Controllers
     [Route("api/[controller]")]
     public class StudentsController : Controller
     {
-        private readonly IStudentRepository _studentRepository;
         private readonly IAuthenticationService _authenticationService;
+        private readonly IStudentRepository _studentRepository;
 
         public StudentsController(IStudentRepository studentRepository, IAuthenticationService authenticationService)
         {
@@ -34,9 +34,7 @@ namespace User.Presentation.Controllers
         {
             var result = _studentRepository.GetById(id);
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 

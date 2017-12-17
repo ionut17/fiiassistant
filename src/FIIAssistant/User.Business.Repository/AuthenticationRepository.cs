@@ -1,6 +1,4 @@
-﻿using System;
-using EnsureThat;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿using EnsureThat;
 using User.Data.Access;
 using User.Data.Model.Entities;
 using User.Data.Model.Interfaces.Repositories;
@@ -17,6 +15,5 @@ namespace User.Business.Repository
 
             _context = context;
         }
-
     }
 }

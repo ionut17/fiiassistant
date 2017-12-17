@@ -43,15 +43,11 @@ namespace User.Presentation.Providers
         {
             //Check if the request path matches login path
             if (!httpContext.Request.Path.Equals(TokenEndPoint, StringComparison.Ordinal))
-            {
                 return _next(httpContext);
-            }
 
             // Check if the current request is a valid POST with the appropriate content type (application/x-www-form-urlencoded)
             if (httpContext.Request.Method.Equals("POST") && httpContext.Request.HasFormContentType)
-            {
                 return CreateToken(httpContext);
-            }
 
             // Not OK: output a 400 - Bad request HTTP error.
             httpContext.Response.StatusCode = 400;

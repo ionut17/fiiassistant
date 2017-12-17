@@ -7,7 +7,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using User.Business.Repository;
 using User.Business.Service;
 using User.Data.Access;
-using User.Data.Model.Interfaces;
 using User.Data.Model.Interfaces.Repositories;
 using User.Data.Model.Interfaces.Services;
 using User.Presentation.Filters;
@@ -51,9 +50,7 @@ namespace User.Presentation
                 c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "FIIAssistant - User component V1"); });
 
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
             app.UseMvc();
         }

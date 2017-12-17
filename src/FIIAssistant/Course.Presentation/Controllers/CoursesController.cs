@@ -1,35 +1,40 @@
 ﻿using System;
+using Course.Business.Repository;
 using Course.Data.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Course.Presentation.Controllers
 {
-    [Route("api/Courses")]
+    [Route("api/[controller]")]
     public class CoursesController : Controller
     {
+        private readonly CourseRepository _courseRepository;
+
+        public CoursesController(CourseRepository courseRepository)
+        {
+            _courseRepository = courseRepository;
+        }
+
+
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new[] {"Computer networks", "Java", "Math"});
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CourseDTO course)
+        public IActionResult Post([FromBody] CourseDTO courseDto)
         {
-            return Ok(course);
         }
 
 
         [HttpPut]
-        public IActionResult Put([FromBody] CourseDTO course)
+        public IActionResult Put([FromBody] CourseDTO courseDto)
         {
-            return Ok(course);
         }
 
         [HttpDelete("{firstName}")]
         public IActionResult Delete(Guid id)
         {
-            return Ok(new CourseDTO());
         }
     }
 }

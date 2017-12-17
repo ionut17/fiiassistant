@@ -28,13 +28,9 @@ namespace IntegrationTests
         protected void RunOnDatabase(Action<TContext> databaseAction)
         {
             if (UseSqlServer)
-            {
                 RunOnSqlServer(databaseAction);
-            }
             else
-            {
                 RunOnMemory(databaseAction);
-            }
         }
 
         private void CreateDatabase()

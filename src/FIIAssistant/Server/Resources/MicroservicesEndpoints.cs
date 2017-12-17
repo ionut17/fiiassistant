@@ -9,6 +9,8 @@
 
         public const string Groups = "http://localhost:6497/api/groups";
 
+        public const string Login = "http://localhost:6497/api/v1/login/token";
+
         //Courses microservice
         public const string Courses = "http://localhost:6479/api/courses";
 

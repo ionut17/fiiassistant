@@ -42,9 +42,7 @@ namespace Timetable.Business.Repository
                     foreach (var row in rows)
                     {
                         if (row.InnerText.Contains("De la") && index > 0)
-                        {
                             break;
-                        }
                         //Check if it's a day of the week
                         var currentContent = ExtractContent(row.InnerText);
                         if (_days.Contains(currentContent))

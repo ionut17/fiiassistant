@@ -16,11 +16,11 @@ namespace Server.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] LoginInfo loginInfo)
         {
-            var student = _restClient.Get(string.Format(MicroservicesEndpoints.StudentById, loginInfo.Email));
+            var student = _restClient.Post(MicroservicesEndpoints.Login, loginInfo);
+
             if (student == null)
-            {
                 return NotFound();
-            }
+            return Ok(student);
 
             var courses = _restClient.Get(MicroservicesEndpoints.Courses);
 
@@ -36,27 +36,20 @@ namespace Server.Controllers
         [HttpPost]
         public IActionResult Register([FromBody] RegisterInfo registerInfo)
         {
-            var student = _restClient.Post(MicroservicesEndpoints.Students, new
-            {
-                registerInfo.Email,
-                registerInfo.FirstName,
-                registerInfo.LastName,
-                registerInfo.Year,
-                registerInfo.Group
-            });
+            var student = _restClient.Post(MicroservicesEndpoints.Students, registerInfo.Student);
 
+            return Ok(student);
             var courses = _restClient.Post(MicroservicesEndpoints.CourseStudents, new
             {
                 student,
-                courses = registerInfo.CoursesNames
+                courses = registerInfo.Courses
             });
 
-            return Ok(
-                new
-                {
-                    student,
-                    courses
-                });
+            return Ok(new
+            {
+                student,
+                courses
+            });
         }
 
         [Route("api/register")]
@@ -86,9 +79,7 @@ namespace Server.Controllers
 
 
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 
@@ -105,14 +96,12 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CreateStudent student)
+        public IActionResult Post([FromBody] Student student)
         {
             const string url = MicroservicesEndpoints.Students;
 
@@ -124,16 +113,14 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, [FromBody] UpdateStudent student)
         {
-            string url = string.Format(MicroservicesEndpoints.StudentById, id);
+            var url = string.Format(MicroservicesEndpoints.StudentById, id);
 
             var result = _restClient.Put(url, student).Result;
 
@@ -142,9 +129,7 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 
@@ -161,9 +146,7 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
     }
