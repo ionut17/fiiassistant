@@ -2,15 +2,16 @@
 using System.Linq;
 using EnsureThat;
 using Microsoft.EntityFrameworkCore;
+using User.Data.Access;
 using User.Data.Model.Common;
 
 namespace User.Business.Repository
 {
     public class BaseRepository<TEntity> where TEntity : Entity
     {
-        private readonly DbContext _context;
+        private readonly IStudentContext _context;
 
-        protected BaseRepository(DbContext context)
+        protected BaseRepository(IStudentContext context)
         {
             Ensure.That(context).IsNotNull();
 
@@ -31,7 +32,7 @@ namespace User.Business.Repository
 
         public void Add(TEntity entity)
         {
-            _context.Add(entity);
+            _context.Set<TEntity>().Add(entity);
             _context.SaveChanges();
         }
 

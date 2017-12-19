@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EnsureThat;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using User.Data.Model.Interfaces.Services;
@@ -14,33 +15,26 @@ namespace User.Presentation.Providers
 {
     public class JwtProvider
     {
-        private static readonly string PrivateKey = "private_key_1234567890"
-            ; //TODO: generate proper private key, extract in properties file
-
-        public static readonly SymmetricSecurityKey SecurityKey =
-            new SymmetricSecurityKey(Encoding.ASCII.GetBytes(PrivateKey));
-
-        public static readonly string Issuer = "FIIAssistantApp";
+        public IConfiguration Configuration { get; }
+        
         public static string TokenEndPoint = "/api/v1/login/token";
-        private readonly IAuthenticationService _authenticationService;
+
+        private IAuthenticationService _authenticationService;
         private readonly RequestDelegate _next;
-        private readonly SigningCredentials _signingCredentials;
 
-        private TimeSpan _tokenExpiration;
-
-        public JwtProvider(RequestDelegate next, IAuthenticationService authenticationService)
+        public JwtProvider(RequestDelegate next, IConfiguration configuration)
         {
-            Ensure.That(authenticationService).IsNotNull();
+            Ensure.That(configuration).IsNotNull();
+            Configuration = configuration;
 
             _next = next;
-            _authenticationService = authenticationService;
-
-            _tokenExpiration = TimeSpan.FromMinutes(60);
-            _signingCredentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
         }
 
-        public Task Invoke(HttpContext httpContext)
+        public Task Invoke(HttpContext httpContext, IAuthenticationService authenticationService)
         {
+            Ensure.That(authenticationService).IsNotNull();
+            _authenticationService = authenticationService;
+
             //Check if the request path matches login path
             if (!httpContext.Request.Path.Equals(TokenEndPoint, StringComparison.Ordinal))
                 return _next(httpContext);
@@ -72,7 +66,7 @@ namespace User.Presentation.Providers
 
                     var claims = new[]
                     {
-                        new Claim(JwtRegisteredClaimNames.Iss, Issuer),
+                        new Claim(JwtRegisteredClaimNames.Iss, Configuration["Auth:Jwt:Issuer"]),
                         new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, new DateTimeOffset(now).ToUnixTimeSeconds().ToString(),
@@ -80,12 +74,20 @@ namespace User.Presentation.Providers
                         // add additional claims here, if necessary
                     };
 
+                    var tokenExpirationMins =
+                        Configuration.GetValue<int>("Auth:Jwt:TokenExpirationInMinutes");
+                    var issuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(Configuration["Auth:Jwt:Key"]));
+
                     // Create the JWT and write it to a string
                     var token = new JwtSecurityToken(
+                        issuer: Configuration["Auth:Jwt:Issuer"],
+                        audience: Configuration["Auth:Jwt:Audience"],
                         claims: claims,
                         notBefore: now,
-                        expires: now.Add(_tokenExpiration),
-                        signingCredentials: _signingCredentials);
+                        expires: now.Add(TimeSpan.FromMinutes(tokenExpirationMins)),
+                        signingCredentials: new SigningCredentials(
+                            issuerSigningKey, SecurityAlgorithms.HmacSha256));
                     var encodedToken = new JwtSecurityTokenHandler().WriteToken(token);
 
                     // build the json response
@@ -93,7 +95,7 @@ namespace User.Presentation.Providers
                     {
                         access_token = encodedToken,
                         userId = user.Id,
-                        expiration = (int) _tokenExpiration.TotalSeconds
+                        expiration = TimeSpan.FromMinutes(tokenExpirationMins)
                     };
 
                     // return token

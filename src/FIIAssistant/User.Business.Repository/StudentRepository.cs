@@ -10,7 +10,7 @@ namespace User.Business.Repository
     {
         private readonly IStudentContext _context;
 
-        public StudentRepository(StudentContext context) : base(context)
+        public StudentRepository(IStudentContext context) : base(context)
         {
             Ensure.That(context).IsNotNull();
 

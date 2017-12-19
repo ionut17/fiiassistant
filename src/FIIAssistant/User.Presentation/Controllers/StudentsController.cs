@@ -1,5 +1,6 @@
 ﻿using System;
 using EnsureThat;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using User.Data.Model.Entities;
 using User.Data.Model.Interfaces.Repositories;
@@ -24,12 +25,14 @@ namespace User.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Get()
         {
             return Ok(_studentRepository.GetAll());
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult Get(Guid id)
         {
             var result = _studentRepository.GetById(id);
@@ -58,6 +61,7 @@ namespace User.Presentation.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Put(Guid id, [FromBody] UpdateStudentDto student)
         {
             var studentToUpdate = _studentRepository.GetById(id);
@@ -72,6 +76,7 @@ namespace User.Presentation.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(Guid id)
         {
             _studentRepository.Delete(id);
