@@ -17,7 +17,7 @@ namespace User.Presentation.Providers
     {
         public IConfiguration Configuration { get; }
         
-        public static string TokenEndPoint = "/api/v1/login/token";
+        public static string TokenEndPoint = "/api/login";
 
         private IAuthenticationService _authenticationService;
         private readonly RequestDelegate _next;
@@ -93,7 +93,7 @@ namespace User.Presentation.Providers
                     // build the json response
                     var jwt = new
                     {
-                        access_token = encodedToken,
+                        accessToken = encodedToken,
                         userId = user.Id,
                         expiration = TimeSpan.FromMinutes(tokenExpirationMins)
                     };
