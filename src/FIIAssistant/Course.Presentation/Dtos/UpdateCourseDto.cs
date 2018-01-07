@@ -1,17 +1,17 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Course.Data.Model
+namespace Course.Presentation.Dtos
 {
-    public class CourseDTO
+    public class UpdateCourseDto
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public string Teacher { get; set; }
 
+        [Url]
         public string Url { get; set; }
 
+        [Range(1, 6)]
         public int Semester { get; set; }
     }
 }

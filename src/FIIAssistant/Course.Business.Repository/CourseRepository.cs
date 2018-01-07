@@ -7,67 +7,67 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Course.Business.Repository
 {
-    public class CourseRepository
+    public class CourseRepository : ICourseRepository
     {
-        private readonly CourseContext _context;
+        private readonly ICourseContext _context;
 
-        protected CourseRepository(CourseContext context)
+        public CourseRepository(ICourseContext context)
         {
             Ensure.That(context).IsNotNull();
 
             _context = context;
         }
 
-        public IQueryable<CourseDTO> GetAll()
+        public IQueryable<Data.Model.Course> GetAll()
         {
-            return _context.Set<CourseDTO>().AsNoTracking();
+            return _context.Set<Data.Model.Course>().AsNoTracking();
         }
 
-        public CourseDTO GetCourseById(Guid id)
+        public Data.Model.Course GetCourseById(Guid id)
         {
-            return _context.Set<CourseDTO>()
+            return _context.Set<Data.Model.Course>()
                 .AsNoTracking()
                 .FirstOrDefault(e => e.Id == id);
         }
 
-        public void AddCourse(CourseDTO course)
+        public void AddCourse(Data.Model.Course course)
         {
-            _context.Add(course);
+            _context.Set<Data.Model.Course>().Add(course);
             _context.SaveChanges();
         }
 
-        public void UpdateCourse(CourseDTO course)
+        public void UpdateCourse(Data.Model.Course course)
         {
-            _context.Set<CourseDTO>().Update(course);
+            _context.Set<Data.Model.Course>().Update(course);
             _context.SaveChanges();
         }
 
         public void DeleteCourse(Guid id)
         {
-            var course = _context.Set<CourseDTO>().Single(e => e.Id == id);
+            var course = _context.Set<Data.Model.Course>().Single(e => e.Id == id);
 
             if (course == null)
                 return;
 
-            _context.Set<CourseDTO>().Remove(course);
+            _context.Set<Data.Model.Course>().Remove(course);
             _context.SaveChanges();
         }
 
-        public void AddStudentCourse(StudentCourseDTO studentCourse)
+        public void AddStudentCourse(StudentCourse studentCourse)
         {
-            _context.Add(studentCourse);
+            _context.Set<StudentCourse>().Add(studentCourse);
             _context.SaveChanges();
         }
 
-        public IQueryable<StudentCourseDTO> GetAllCoursesForStudent(Guid studentId)
+        public IQueryable<StudentCourse> GetAllCoursesForStudent(Guid studentId)
         {
-            return _context.Set<StudentCourseDTO>().AsNoTracking()
+            return _context.Set<StudentCourse>().AsNoTracking()
                 .Where(sc => sc.StudentId == studentId);
         }
 
-        public void DeleteStudentCourse(StudentCourseDTO studentCourse)
+        public void DeleteStudentCourse(StudentCourse studentCourse)
         {
-            _context.Set<StudentCourseDTO>().Remove(studentCourse);
+            _context.Set<StudentCourse>().Remove(studentCourse);
             _context.SaveChanges();
         }
     }

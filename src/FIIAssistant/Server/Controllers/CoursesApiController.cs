@@ -30,11 +30,11 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CourseDTO courseDto)
+        public IActionResult Post([FromBody] Course.Data.Model.Course course)
         {
             const string url = MicroservicesEndpoints.Courses;
 
-            var result = _restClient.Post(url, courseDto).Result;
+            var result = _restClient.Post(url, course).Result;
             var message = new LogMessage(Guid.NewGuid(), "Post Course", "CoursesAPIController", "POST");
             LogHelper.Log(LogContainer.File, message);
 
@@ -44,11 +44,11 @@ namespace Server.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] CourseDTO courseDto)
+        public IActionResult Put([FromBody] Course.Data.Model.Course course)
         {
             const string url = MicroservicesEndpoints.Courses;
 
-            var result = _restClient.Put(url, courseDto).Result;
+            var result = _restClient.Put(url, course).Result;
 
             var message = new LogMessage(Guid.NewGuid(), "Put Course", "CoursesAPIController", "PUT");
             LogHelper.Log(LogContainer.File, message);
