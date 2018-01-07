@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Server.Entities;
-using Server.Logger;
 using Server.Resources;
 using Server.RestClients;
 
@@ -16,11 +15,11 @@ namespace Server.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] LoginInfo loginInfo)
         {
-            var student = _restClient.Get(string.Format(MicroservicesEndpoints.StudentById, loginInfo.Email));
+            var student = _restClient.Post(MicroservicesEndpoints.Login, loginInfo);
+
             if (student == null)
-            {
                 return NotFound();
-            }
+            return Ok(student);
 
             var courses = _restClient.Get(MicroservicesEndpoints.Courses);
 
@@ -36,27 +35,20 @@ namespace Server.Controllers
         [HttpPost]
         public IActionResult Register([FromBody] RegisterInfo registerInfo)
         {
-            var student = _restClient.Post(MicroservicesEndpoints.Students, new
-            {
-                registerInfo.Email,
-                registerInfo.FirstName,
-                registerInfo.LastName,
-                registerInfo.Year,
-                registerInfo.Group
-            });
+            var student = _restClient.Post(MicroservicesEndpoints.Students, registerInfo.Student);
 
+            return Ok(student);
             var courses = _restClient.Post(MicroservicesEndpoints.CourseStudents, new
             {
                 student,
-                courses = registerInfo.CoursesNames
+                courses = registerInfo.Courses
             });
 
-            return Ok(
-                new
-                {
-                    student,
-                    courses
-                });
+            return Ok(new
+            {
+                student,
+                courses
+            });
         }
 
         [Route("api/register")]
@@ -80,15 +72,8 @@ namespace Server.Controllers
 
             var result = _restClient.Get(url).Result;
 
-            var message = new LogMessage(Guid.NewGuid(), "All students", "StudentsAPIController", "GET");
-            LogHelper.Log(LogContainer.Database, message);
-            LogHelper.Log(LogContainer.File, message);
-
-
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 
@@ -99,52 +84,32 @@ namespace Server.Controllers
 
             var result = _restClient.Get(url).Result;
 
-            var message = new LogMessage(Guid.NewGuid(), "Student with id: " + id,
-                "StudentsAPIController", "GET");
-            LogHelper.Log(LogContainer.Database, message);
-            LogHelper.Log(LogContainer.File, message);
-
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CreateStudent student)
+        public IActionResult Post([FromBody] Student student)
         {
             const string url = MicroservicesEndpoints.Students;
 
             var result = _restClient.Post(url, student).Result;
 
-            var message = new LogMessage(Guid.NewGuid(), "Added student with the email: " + student.Email,
-                "StudentsAPIController", "POST");
-            LogHelper.Log(LogContainer.Database, message);
-            LogHelper.Log(LogContainer.File, message);
-
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, [FromBody] UpdateStudent student)
         {
-            string url = string.Format(MicroservicesEndpoints.StudentById, id);
+            var url = string.Format(MicroservicesEndpoints.StudentById, id);
 
             var result = _restClient.Put(url, student).Result;
 
-            var message = new LogMessage(Guid.NewGuid(), "Put result.", "StudentsAPIController", "PUT");
-            LogHelper.Log(LogContainer.Database, message);
-            LogHelper.Log(LogContainer.File, message);
-
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 
@@ -155,15 +120,8 @@ namespace Server.Controllers
 
             var result = _restClient.Delete(url).Result;
 
-            var message = new LogMessage(Guid.NewGuid(), "Deleted student with id: " + id,
-                "StudentsAPIController", "DELETE");
-            LogHelper.Log(LogContainer.Database, message);
-            LogHelper.Log(LogContainer.File, message);
-
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
     }

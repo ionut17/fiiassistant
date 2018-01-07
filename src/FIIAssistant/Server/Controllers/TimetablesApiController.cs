@@ -23,25 +23,21 @@ namespace Server.Controllers
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
 
-        [HttpGet("{group}/{year}")]
-        public IActionResult GetGroupTimetable(string group, int year)
+        [HttpGet("{group}")]
+        public IActionResult GetGroupTimetable(string group)
         {
-            var url = string.Format(MicroservicesEndpoints.GroupTimetables, group, year);
+            var url = string.Format(MicroservicesEndpoints.GroupTimetables, group);
 
             var result = _restClient.Get(url).Result;
             var message = new LogMessage(Guid.NewGuid(), "Group timetable", "TimetableAPIController", "GET");
             LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
-            {
                 return NotFound();
-            }
             return Ok(result);
         }
     }

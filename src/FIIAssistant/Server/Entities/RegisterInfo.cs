@@ -1,8 +1,8 @@
 ﻿namespace Server.Entities
 {
-    public class RegisterInfo: CreateStudent
+    public class RegisterInfo
     {
-        public string Password { get; set; }
-        public string[] CoursesNames { get; set; }
+        public Student Student { get; set; }
+        public string[] Courses { get; set; }
     }
 }

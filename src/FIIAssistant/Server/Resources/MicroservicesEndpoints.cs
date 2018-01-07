@@ -9,6 +9,8 @@
 
         public const string Groups = "http://localhost:6497/api/groups";
 
+        public const string Login = "http://localhost:6497/api/v1/login/token";
+
         //Courses microservice
         public const string Courses = "http://localhost:6479/api/courses";
 
@@ -18,7 +20,7 @@
         //Timetable microservice
         public const string Timetables = "http://localhost:6459/api/timetables";
 
-        public const string GroupTimetables = "http://localhost:6459/api/timetables/{0}/{1}";
+        public const string GroupTimetables = "http://localhost:6459/api/timetables/{0}";
 
         //Server
         public const string Server = "http://localhost:6438/api/";
