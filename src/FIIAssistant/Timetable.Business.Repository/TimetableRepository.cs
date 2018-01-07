@@ -11,7 +11,7 @@ namespace Timetable.Business.Repository
     public class TimetableRepository<TRequest> : ITimetableRepository<TRequest, WeekTimetable>
         where TRequest : Request
     {
-        private readonly string[] _days = {"Luni", "Marti", "Miercuri", "Joi", "Vineri"};
+        private readonly string[] _days = {"Luni", "Marti", "Miercuri", "Joi", "Vineri", "Sambata"};
         private readonly Logger _logger;
         private readonly WebClient _webClient;
 
@@ -35,6 +35,7 @@ namespace Timetable.Business.Repository
                 {
                     document.Load(stream, Encoding.GetEncoding("ISO-8859-1"));
                     weekTimetable.Title = ExtractContent(document.DocumentNode.Descendants("h2").First().InnerText);
+                    var isMaster = weekTimetable.Title.Contains("Master");
                     var table = document.DocumentNode.Descendants("table").First();
                     var rows = table.SelectNodes("//tr");
                     var day = new DayTimetable();
@@ -58,17 +59,27 @@ namespace Timetable.Business.Repository
                         else if (index > 0)
                         {
                             var cols = row.ChildNodes;
-                            day.Entries.Add(new EntryTimetable
+                            var rid = isMaster ? 7 : 5;
+                            EntryTimetable entry = new EntryTimetable();
+                            entry.StartHour = ExtractContent(cols[1].InnerText);
+                            entry.EndHour = ExtractContent(cols[3].InnerText);
+
+                            if (isMaster)
                             {
-                                StartHour = ExtractContent(cols[1].InnerText),
-                                EndHour = ExtractContent(cols[3].InnerText),
-                                Groups = ExtractContent(cols[5].InnerText),
-                                Course = ExtractContent(cols[7].InnerText),
-                                Type = ExtractContent(cols[9].InnerText),
-                                Lecturer = ExtractContent(cols[11].InnerText),
-                                Location = ExtractContent(cols[13].InnerText),
-                                Package = ExtractContent(cols[17].InnerText)
-                            });
+                                entry.Groups = ExtractContent((cols[5].InnerText));
+                            }
+                            else
+                            {
+                                entry.Groups = entity.BaseAddress.Split("_").Last().Split(".html").First().ToString();
+                            }
+
+                            entry.Course = ExtractContent(cols[rid].InnerText);
+                            entry.Type = ExtractContent(cols[rid+2].InnerText);
+                            entry.Lecturer = ExtractContent(cols[rid+4].InnerText);
+                            entry.Location = ExtractContent(cols[rid+6].InnerText);
+                            entry.Package = ExtractContent(cols[rid+8].InnerText);
+
+                            day.Entries.Add(entry);
                         }
                         index++;
                     }
