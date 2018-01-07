@@ -2,7 +2,7 @@
 
 namespace Server.Entities
 {
-    public class CreateStudent
+    public class Student
     {
         [EmailAddress]
         public string Email { get; set; }

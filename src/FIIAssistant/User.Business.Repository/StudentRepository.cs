@@ -2,7 +2,6 @@
 using EnsureThat;
 using User.Data.Access;
 using User.Data.Model.Entities;
-using User.Data.Model.Interfaces;
 using User.Data.Model.Interfaces.Repositories;
 
 namespace User.Business.Repository
@@ -11,7 +10,7 @@ namespace User.Business.Repository
     {
         private readonly IStudentContext _context;
 
-        public StudentRepository(StudentContext context) : base(context)
+        public StudentRepository(IStudentContext context) : base(context)
         {
             Ensure.That(context).IsNotNull();
 

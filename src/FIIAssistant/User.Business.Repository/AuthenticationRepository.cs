@@ -1,6 +1,4 @@
-﻿using System;
-using EnsureThat;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿using EnsureThat;
 using User.Data.Access;
 using User.Data.Model.Entities;
 using User.Data.Model.Interfaces.Repositories;
@@ -11,12 +9,11 @@ namespace User.Business.Repository
     {
         private readonly IStudentContext _context;
 
-        public AuthenticationRepository(StudentContext context) : base(context)
+        public AuthenticationRepository(IStudentContext context) : base(context)
         {
             Ensure.That(context).IsNotNull();
 
             _context = context;
         }
-
     }
 }

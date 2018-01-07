@@ -8,5 +8,6 @@ namespace User.Data.Access
         DbSet<Student> Students { get; set; }
         DbSet<Authentication> Authentications { get; set; }
         int SaveChanges();
+        DbSet<TEntity> Set<TEntity>() where TEntity : class;
     }
 }

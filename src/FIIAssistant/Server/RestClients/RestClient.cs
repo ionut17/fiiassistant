@@ -14,9 +14,7 @@ namespace Server.RestClients
             var task = _httpClient.GetAsync(url);
             var result = task.Result;
             if (!result.IsSuccessStatusCode)
-            {
                 return null;
-            }
             var resultString = await result.Content.ReadAsStringAsync();
             return resultString;
         }

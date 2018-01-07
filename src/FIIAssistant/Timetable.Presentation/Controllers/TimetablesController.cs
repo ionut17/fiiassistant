@@ -10,13 +10,13 @@ namespace Timetable.Presentation.Controllers
     {
         public TableService Service { get; set; } = new TableService();
 
-        [HttpGet("{group}/{year}")]
-        public IActionResult Get(string group, int year)
+        [HttpGet("{group}")]
+        public IActionResult Get(string group)
         {
             var request = new GroupRequest
             {
                 Group = group,
-                Year = year,
+                Year = 3,
                 BaseAddress = "https://profs.info.uaic.ro/~orar"
             };
 
