@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Server.Entities;
-using Server.Logger;
 using Server.Resources;
 using Server.RestClients;
 
@@ -80,11 +79,6 @@ namespace Server.Controllers
 
             var result = _restClient.Get(url).Result;
 
-            //var message = new LogMessage(Guid.NewGuid(), "All students", "StudentsAPIController", "GET");
-            //LogHelper.Log(LogContainer.Database, message);
-            //LogHelper.Log(LogContainer.File, message);
-
-
             if (result == null)
             {
                 return NotFound();
@@ -98,11 +92,6 @@ namespace Server.Controllers
             var url = string.Format(MicroservicesEndpoints.StudentById, id);
 
             var result = _restClient.Get(url).Result;
-
-            //var message = new LogMessage(Guid.NewGuid(), "Student with id: " + id,
-            //    "StudentsAPIController", "GET");
-            //LogHelper.Log(LogContainer.Database, message);
-            //LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
             {
@@ -118,11 +107,6 @@ namespace Server.Controllers
 
             var result = _restClient.Post(url, student).Result;
 
-            //var message = new LogMessage(Guid.NewGuid(), "Added student with the email: " + student.Email,
-            //    "StudentsAPIController", "POST");
-            //LogHelper.Log(LogContainer.Database, message);
-            //LogHelper.Log(LogContainer.File, message);
-
             if (result == null)
             {
                 return NotFound();
@@ -137,10 +121,6 @@ namespace Server.Controllers
 
             var result = _restClient.Put(url, student).Result;
 
-            //var message = new LogMessage(Guid.NewGuid(), "Put result.", "StudentsAPIController", "PUT");
-            //LogHelper.Log(LogContainer.Database, message);
-            //LogHelper.Log(LogContainer.File, message);
-
             if (result == null)
             {
                 return NotFound();
@@ -154,11 +134,6 @@ namespace Server.Controllers
             var url = string.Format(MicroservicesEndpoints.StudentById, id);
 
             var result = _restClient.Delete(url).Result;
-
-            //var message = new LogMessage(Guid.NewGuid(), "Deleted student with id: " + id,
-            //    "StudentsAPIController", "DELETE");
-            //LogHelper.Log(LogContainer.Database, message);
-            //LogHelper.Log(LogContainer.File, message);
 
             if (result == null)
             {
